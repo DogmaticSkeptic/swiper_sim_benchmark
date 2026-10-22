@@ -1,0 +1,162 @@
+[
+  {
+    "bbox_patch_rows": 1,
+    "bbox_patch_cols": 1,
+    "nominal_data_rows": 3,
+    "nominal_data_cols": 3,
+    "occupied_patch_count": 1,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ]
+    ],
+    "occurrences": 8868771
+  },
+  {
+    "bbox_patch_rows": 1,
+    "bbox_patch_cols": 2,
+    "nominal_data_rows": 3,
+    "nominal_data_cols": 6,
+    "occupied_patch_count": 2,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "occurrences": 26351
+  },
+  {
+    "bbox_patch_rows": 2,
+    "bbox_patch_cols": 1,
+    "nominal_data_rows": 6,
+    "nominal_data_cols": 3,
+    "occupied_patch_count": 2,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "occurrences": 18291
+  },
+  {
+    "bbox_patch_rows": 3,
+    "bbox_patch_cols": 1,
+    "nominal_data_rows": 9,
+    "nominal_data_cols": 3,
+    "occupied_patch_count": 3,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ]
+    ],
+    "occurrences": 5527
+  },
+  {
+    "bbox_patch_rows": 1,
+    "bbox_patch_cols": 3,
+    "nominal_data_rows": 3,
+    "nominal_data_cols": 9,
+    "occupied_patch_count": 3,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "occurrences": 381
+  },
+  {
+    "bbox_patch_rows": 2,
+    "bbox_patch_cols": 2,
+    "nominal_data_rows": 6,
+    "nominal_data_cols": 6,
+    "occupied_patch_count": 3,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "occurrences": 405
+  },
+  {
+    "bbox_patch_rows": 2,
+    "bbox_patch_cols": 2,
+    "nominal_data_rows": 6,
+    "nominal_data_cols": 6,
+    "occupied_patch_count": 3,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "occurrences": 11
+  },
+  {
+    "bbox_patch_rows": 2,
+    "bbox_patch_cols": 2,
+    "nominal_data_rows": 6,
+    "nominal_data_cols": 6,
+    "occupied_patch_count": 3,
+    "occupied_patches": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "occurrences": 1
+  }
+]

@@ -1,0 +1,7 @@
+bbox_patch_rows,bbox_patch_cols,nominal_data_rows,nominal_data_cols,occupied_patch_count,occurrences
+1,1,3,3,1,8868771
+1,2,3,6,2,26351
+1,3,3,9,3,381
+2,1,6,3,2,18291
+2,2,6,6,3,417
+3,1,9,3,3,5527

@@ -1,0 +1,3 @@
+case,shape_id,nominal_rows,nominal_cols,patches,distance,bulk_rounds_per_phase,rounds,phases,basis,p,shots,seed,coupled,measurements_per_shot,detections_per_shot,observables_per_shot,pymatching_shot_failures
+cases/3x3_b0d317a3_bulk001_z_p0.001,b0d317a3ada5818326ed,3,3,1,3,1,3,1,z,0.001,16,3134196474817431972,False,33,24,1,0
+cases/3x3_b0d317a3_bulk003_z_p0.001,b0d317a3ada5818326ed,3,3,1,3,3,5,1,z,0.001,16,16718332767201889725,False,49,40,1,0

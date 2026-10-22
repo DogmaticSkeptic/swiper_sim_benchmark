@@ -1,0 +1,1253 @@
+{
+  "schema_version": 1,
+  "input_unit": "patch_rounds",
+  "output_unit": "microseconds",
+  "distance": 3,
+  "model": "monotone_piecewise_linear",
+  "calibration_scope": "representative_surgery_volume_surrogate",
+  "exact_swiper_window_calibration": false,
+  "volume_proxy_definition": "occupied tile count times full circuit measurement rounds; includes preparation and surgery context",
+  "fit_method": "Weighted isotonic least squares at distinct proxy volumes; equal weight per case; linear interpolation between knots",
+  "extrapolation": "Below range: clamp to lowest fitted cost; above range: scale proportionally from the last knot",
+  "fits": {
+    "mean": {
+      "knots": [
+        {
+          "volume": 3,
+          "latency_us": 4.0086365
+        },
+        {
+          "volume": 5,
+          "latency_us": 4.0086365
+        },
+        {
+          "volume": 8,
+          "latency_us": 4.085509
+        },
+        {
+          "volume": 14,
+          "latency_us": 4.584550000000001
+        },
+        {
+          "volume": 18,
+          "latency_us": 4.80003
+        },
+        {
+          "volume": 22,
+          "latency_us": 5.8044020000000005
+        },
+        {
+          "volume": 26,
+          "latency_us": 5.8044020000000005
+        },
+        {
+          "volume": 30,
+          "latency_us": 5.8044020000000005
+        },
+        {
+          "volume": 34,
+          "latency_us": 6.039261000000001
+        },
+        {
+          "volume": 45,
+          "latency_us": 6.536555
+        },
+        {
+          "volume": 48,
+          "latency_us": 6.560394500000001
+        },
+        {
+          "volume": 50,
+          "latency_us": 6.560394500000001
+        },
+        {
+          "volume": 51,
+          "latency_us": 7.1575242
+        },
+        {
+          "volume": 52,
+          "latency_us": 7.1575242
+        },
+        {
+          "volume": 57,
+          "latency_us": 7.576913
+        },
+        {
+          "volume": 75,
+          "latency_us": 8.41843
+        },
+        {
+          "volume": 81,
+          "latency_us": 9.087389000000002
+        },
+        {
+          "volume": 84,
+          "latency_us": 9.087389000000002
+        },
+        {
+          "volume": 87,
+          "latency_us": 9.087389000000002
+        },
+        {
+          "volume": 88,
+          "latency_us": 9.087389000000002
+        },
+        {
+          "volume": 92,
+          "latency_us": 10.069399
+        },
+        {
+          "volume": 100,
+          "latency_us": 10.453031000000001
+        },
+        {
+          "volume": 120,
+          "latency_us": 10.991045000000002
+        },
+        {
+          "volume": 126,
+          "latency_us": 11.751999500000002
+        },
+        {
+          "volume": 132,
+          "latency_us": 12.547644000000002
+        },
+        {
+          "volume": 148,
+          "latency_us": 13.864483500000002
+        },
+        {
+          "volume": 155,
+          "latency_us": 14.851838142857146
+        },
+        {
+          "volume": 156,
+          "latency_us": 14.851838142857146
+        },
+        {
+          "volume": 160,
+          "latency_us": 14.851838142857146
+        },
+        {
+          "volume": 165,
+          "latency_us": 16.052690000000002
+        },
+        {
+          "volume": 210,
+          "latency_us": 16.929461000000003
+        },
+        {
+          "volume": 216,
+          "latency_us": 17.25778525
+        },
+        {
+          "volume": 222,
+          "latency_us": 18.971964
+        },
+        {
+          "volume": 232,
+          "latency_us": 19.013128000000002
+        },
+        {
+          "volume": 240,
+          "latency_us": 19.082936000000004
+        },
+        {
+          "volume": 245,
+          "latency_us": 21.611959
+        },
+        {
+          "volume": 255,
+          "latency_us": 22.991159
+        },
+        {
+          "volume": 300,
+          "latency_us": 23.565239499999997
+        },
+        {
+          "volume": 304,
+          "latency_us": 23.565239499999997
+        },
+        {
+          "volume": 329,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 354,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 380,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 390,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 396,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 400,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 402,
+          "latency_us": 29.646728142857143
+        },
+        {
+          "volume": 408,
+          "latency_us": 30.162246500000002
+        },
+        {
+          "volume": 511,
+          "latency_us": 46.67982549999999
+        },
+        {
+          "volume": 552,
+          "latency_us": 46.67982549999999
+        },
+        {
+          "volume": 650,
+          "latency_us": 49.86549675
+        },
+        {
+          "volume": 660,
+          "latency_us": 49.86549675
+        },
+        {
+          "volume": 736,
+          "latency_us": 52.80479666666666
+        },
+        {
+          "volume": 744,
+          "latency_us": 52.80479666666666
+        },
+        {
+          "volume": 750,
+          "latency_us": 52.80479666666666
+        },
+        {
+          "volume": 756,
+          "latency_us": 52.80479666666666
+        },
+        {
+          "volume": 762,
+          "latency_us": 53.588902000000004
+        },
+        {
+          "volume": 784,
+          "latency_us": 70.27239
+        },
+        {
+          "volume": 948,
+          "latency_us": 77.533798
+        },
+        {
+          "volume": 1190,
+          "latency_us": 89.90746033333335
+        },
+        {
+          "volume": 1200,
+          "latency_us": 94.92771400000001
+        },
+        {
+          "volume": 1330,
+          "latency_us": 110.83359380000002
+        },
+        {
+          "volume": 1408,
+          "latency_us": 110.83359380000002
+        },
+        {
+          "volume": 1416,
+          "latency_us": 110.83359380000002
+        },
+        {
+          "volume": 1740,
+          "latency_us": 141.207671
+        },
+        {
+          "volume": 2270,
+          "latency_us": 185.39479100000003
+        },
+        {
+          "volume": 2280,
+          "latency_us": 190.472664
+        },
+        {
+          "volume": 2422,
+          "latency_us": 275.902988
+        },
+        {
+          "volume": 3324,
+          "latency_us": 314.38000400000004
+        },
+        {
+          "volume": 4606,
+          "latency_us": 494.10472400000003
+        }
+      ],
+      "case_rmse_us": 1.7288288052557437,
+      "case_median_absolute_relative_error": 0.018561625584849716,
+      "held_out_footprint_median_absolute_relative_error": 0.03854586814877205
+    },
+    "median": {
+      "knots": [
+        {
+          "volume": 3,
+          "latency_us": 3.7504999999999997
+        },
+        {
+          "volume": 5,
+          "latency_us": 3.7504999999999997
+        },
+        {
+          "volume": 8,
+          "latency_us": 4.041
+        },
+        {
+          "volume": 14,
+          "latency_us": 4.333
+        },
+        {
+          "volume": 18,
+          "latency_us": 4.666
+        },
+        {
+          "volume": 22,
+          "latency_us": 5.1045
+        },
+        {
+          "volume": 26,
+          "latency_us": 5.1045
+        },
+        {
+          "volume": 30,
+          "latency_us": 5.333
+        },
+        {
+          "volume": 34,
+          "latency_us": 5.500500000000001
+        },
+        {
+          "volume": 45,
+          "latency_us": 6.084
+        },
+        {
+          "volume": 48,
+          "latency_us": 6.125
+        },
+        {
+          "volume": 50,
+          "latency_us": 6.125
+        },
+        {
+          "volume": 51,
+          "latency_us": 6.500249999999999
+        },
+        {
+          "volume": 52,
+          "latency_us": 6.584
+        },
+        {
+          "volume": 57,
+          "latency_us": 7.042
+        },
+        {
+          "volume": 75,
+          "latency_us": 7.7715
+        },
+        {
+          "volume": 81,
+          "latency_us": 8.3502
+        },
+        {
+          "volume": 84,
+          "latency_us": 8.3502
+        },
+        {
+          "volume": 87,
+          "latency_us": 8.542
+        },
+        {
+          "volume": 88,
+          "latency_us": 8.542
+        },
+        {
+          "volume": 92,
+          "latency_us": 8.969
+        },
+        {
+          "volume": 100,
+          "latency_us": 9.605
+        },
+        {
+          "volume": 120,
+          "latency_us": 10.125499999999999
+        },
+        {
+          "volume": 126,
+          "latency_us": 10.94825
+        },
+        {
+          "volume": 132,
+          "latency_us": 11.500499999999999
+        },
+        {
+          "volume": 148,
+          "latency_us": 12.6675
+        },
+        {
+          "volume": 155,
+          "latency_us": 13.494785714285715
+        },
+        {
+          "volume": 156,
+          "latency_us": 13.494785714285715
+        },
+        {
+          "volume": 160,
+          "latency_us": 13.494785714285715
+        },
+        {
+          "volume": 165,
+          "latency_us": 14.418
+        },
+        {
+          "volume": 210,
+          "latency_us": 15.917
+        },
+        {
+          "volume": 216,
+          "latency_us": 16.052500000000002
+        },
+        {
+          "volume": 222,
+          "latency_us": 17.407
+        },
+        {
+          "volume": 232,
+          "latency_us": 17.407
+        },
+        {
+          "volume": 240,
+          "latency_us": 17.7095
+        },
+        {
+          "volume": 245,
+          "latency_us": 19.973
+        },
+        {
+          "volume": 255,
+          "latency_us": 21.000500000000002
+        },
+        {
+          "volume": 300,
+          "latency_us": 21.104750000000003
+        },
+        {
+          "volume": 304,
+          "latency_us": 21.104750000000003
+        },
+        {
+          "volume": 329,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 354,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 380,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 390,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 396,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 400,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 402,
+          "latency_us": 27.53385714285714
+        },
+        {
+          "volume": 408,
+          "latency_us": 28.28225
+        },
+        {
+          "volume": 511,
+          "latency_us": 43.699749999999995
+        },
+        {
+          "volume": 552,
+          "latency_us": 43.699749999999995
+        },
+        {
+          "volume": 650,
+          "latency_us": 46.668499999999995
+        },
+        {
+          "volume": 660,
+          "latency_us": 46.668499999999995
+        },
+        {
+          "volume": 736,
+          "latency_us": 49.77305555555555
+        },
+        {
+          "volume": 744,
+          "latency_us": 49.77305555555555
+        },
+        {
+          "volume": 750,
+          "latency_us": 49.77305555555555
+        },
+        {
+          "volume": 756,
+          "latency_us": 49.77305555555555
+        },
+        {
+          "volume": 762,
+          "latency_us": 50.752
+        },
+        {
+          "volume": 784,
+          "latency_us": 65.3775
+        },
+        {
+          "volume": 948,
+          "latency_us": 73.795
+        },
+        {
+          "volume": 1190,
+          "latency_us": 84.95483333333334
+        },
+        {
+          "volume": 1200,
+          "latency_us": 89.712
+        },
+        {
+          "volume": 1330,
+          "latency_us": 104.29180000000001
+        },
+        {
+          "volume": 1408,
+          "latency_us": 104.29180000000001
+        },
+        {
+          "volume": 1416,
+          "latency_us": 104.29180000000001
+        },
+        {
+          "volume": 1740,
+          "latency_us": 134.88
+        },
+        {
+          "volume": 2270,
+          "latency_us": 178.07666666666668
+        },
+        {
+          "volume": 2280,
+          "latency_us": 180.424
+        },
+        {
+          "volume": 2422,
+          "latency_us": 227.1965
+        },
+        {
+          "volume": 3324,
+          "latency_us": 302.8245
+        },
+        {
+          "volume": 4606,
+          "latency_us": 477.1855
+        }
+      ],
+      "case_rmse_us": 1.3640571214097053,
+      "case_median_absolute_relative_error": 0.00850048914146976,
+      "held_out_footprint_median_absolute_relative_error": 0.026316478462675763
+    },
+    "p95": {
+      "knots": [
+        {
+          "volume": 3,
+          "latency_us": 4.667
+        },
+        {
+          "volume": 5,
+          "latency_us": 4.669049999999998
+        },
+        {
+          "volume": 8,
+          "latency_us": 4.833
+        },
+        {
+          "volume": 14,
+          "latency_us": 5.8360499999999975
+        },
+        {
+          "volume": 18,
+          "latency_us": 6.2110499999999975
+        },
+        {
+          "volume": 22,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 26,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 30,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 34,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 45,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 48,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 50,
+          "latency_us": 8.97606428571428
+        },
+        {
+          "volume": 51,
+          "latency_us": 10.411309999999997
+        },
+        {
+          "volume": 52,
+          "latency_us": 10.411309999999997
+        },
+        {
+          "volume": 57,
+          "latency_us": 11.340249999999994
+        },
+        {
+          "volume": 75,
+          "latency_us": 11.708
+        },
+        {
+          "volume": 81,
+          "latency_us": 13.127949999999998
+        },
+        {
+          "volume": 84,
+          "latency_us": 13.127949999999998
+        },
+        {
+          "volume": 87,
+          "latency_us": 13.127949999999998
+        },
+        {
+          "volume": 88,
+          "latency_us": 13.127949999999998
+        },
+        {
+          "volume": 92,
+          "latency_us": 15.464774999999996
+        },
+        {
+          "volume": 100,
+          "latency_us": 16.10078333333333
+        },
+        {
+          "volume": 120,
+          "latency_us": 16.10078333333333
+        },
+        {
+          "volume": 126,
+          "latency_us": 16.545887499999996
+        },
+        {
+          "volume": 132,
+          "latency_us": 18.01044999999999
+        },
+        {
+          "volume": 148,
+          "latency_us": 20.587624999999996
+        },
+        {
+          "volume": 155,
+          "latency_us": 22.874985714285707
+        },
+        {
+          "volume": 156,
+          "latency_us": 22.874985714285707
+        },
+        {
+          "volume": 160,
+          "latency_us": 22.874985714285707
+        },
+        {
+          "volume": 165,
+          "latency_us": 24.27580833333333
+        },
+        {
+          "volume": 210,
+          "latency_us": 24.27580833333333
+        },
+        {
+          "volume": 216,
+          "latency_us": 24.27580833333333
+        },
+        {
+          "volume": 222,
+          "latency_us": 28.596908333333328
+        },
+        {
+          "volume": 232,
+          "latency_us": 28.596908333333328
+        },
+        {
+          "volume": 240,
+          "latency_us": 28.596908333333328
+        },
+        {
+          "volume": 245,
+          "latency_us": 31.84893333333332
+        },
+        {
+          "volume": 255,
+          "latency_us": 34.251
+        },
+        {
+          "volume": 300,
+          "latency_us": 39.195274999999995
+        },
+        {
+          "volume": 304,
+          "latency_us": 39.195274999999995
+        },
+        {
+          "volume": 329,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 354,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 380,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 390,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 396,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 400,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 402,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 408,
+          "latency_us": 43.16648124999999
+        },
+        {
+          "volume": 511,
+          "latency_us": 68.01769999999995
+        },
+        {
+          "volume": 552,
+          "latency_us": 68.01769999999995
+        },
+        {
+          "volume": 650,
+          "latency_us": 72.97764999999998
+        },
+        {
+          "volume": 660,
+          "latency_us": 72.97764999999998
+        },
+        {
+          "volume": 736,
+          "latency_us": 73.22286499999998
+        },
+        {
+          "volume": 744,
+          "latency_us": 73.22286499999998
+        },
+        {
+          "volume": 750,
+          "latency_us": 73.22286499999998
+        },
+        {
+          "volume": 756,
+          "latency_us": 73.22286499999998
+        },
+        {
+          "volume": 762,
+          "latency_us": 73.22286499999998
+        },
+        {
+          "volume": 784,
+          "latency_us": 109.02164999999998
+        },
+        {
+          "volume": 948,
+          "latency_us": 110.57724999999998
+        },
+        {
+          "volume": 1190,
+          "latency_us": 125.2694833333333
+        },
+        {
+          "volume": 1200,
+          "latency_us": 139.1723499999999
+        },
+        {
+          "volume": 1330,
+          "latency_us": 155.22736999999998
+        },
+        {
+          "volume": 1408,
+          "latency_us": 155.22736999999998
+        },
+        {
+          "volume": 1416,
+          "latency_us": 155.22736999999998
+        },
+        {
+          "volume": 1740,
+          "latency_us": 190.71634999999992
+        },
+        {
+          "volume": 2270,
+          "latency_us": 242.92751666666663
+        },
+        {
+          "volume": 2280,
+          "latency_us": 258.88505
+        },
+        {
+          "volume": 2422,
+          "latency_us": 339.8523
+        },
+        {
+          "volume": 3324,
+          "latency_us": 419.38924999999995
+        },
+        {
+          "volume": 4606,
+          "latency_us": 645.4559499999998
+        }
+      ],
+      "case_rmse_us": 5.395435425925817,
+      "case_median_absolute_relative_error": 0.05034032836807931,
+      "held_out_footprint_median_absolute_relative_error": 0.08609588187396996
+    },
+    "p99": {
+      "knots": [
+        {
+          "volume": 3,
+          "latency_us": 7.853083333333328
+        },
+        {
+          "volume": 5,
+          "latency_us": 7.853083333333328
+        },
+        {
+          "volume": 8,
+          "latency_us": 7.853083333333328
+        },
+        {
+          "volume": 14,
+          "latency_us": 9.546169999999996
+        },
+        {
+          "volume": 18,
+          "latency_us": 9.546169999999996
+        },
+        {
+          "volume": 22,
+          "latency_us": 15.023043333333325
+        },
+        {
+          "volume": 26,
+          "latency_us": 15.023043333333325
+        },
+        {
+          "volume": 30,
+          "latency_us": 15.023043333333325
+        },
+        {
+          "volume": 34,
+          "latency_us": 15.023043333333325
+        },
+        {
+          "volume": 45,
+          "latency_us": 15.023043333333325
+        },
+        {
+          "volume": 48,
+          "latency_us": 15.023043333333325
+        },
+        {
+          "volume": 50,
+          "latency_us": 16.128339999999998
+        },
+        {
+          "volume": 51,
+          "latency_us": 17.237511666666652
+        },
+        {
+          "volume": 52,
+          "latency_us": 17.237511666666652
+        },
+        {
+          "volume": 57,
+          "latency_us": 17.237511666666652
+        },
+        {
+          "volume": 75,
+          "latency_us": 18.29534
+        },
+        {
+          "volume": 81,
+          "latency_us": 20.47510428571428
+        },
+        {
+          "volume": 84,
+          "latency_us": 20.47510428571428
+        },
+        {
+          "volume": 87,
+          "latency_us": 20.47510428571428
+        },
+        {
+          "volume": 88,
+          "latency_us": 20.47510428571428
+        },
+        {
+          "volume": 92,
+          "latency_us": 25.890956666666657
+        },
+        {
+          "volume": 100,
+          "latency_us": 25.890956666666657
+        },
+        {
+          "volume": 120,
+          "latency_us": 25.890956666666657
+        },
+        {
+          "volume": 126,
+          "latency_us": 25.890956666666657
+        },
+        {
+          "volume": 132,
+          "latency_us": 31.046339999999997
+        },
+        {
+          "volume": 148,
+          "latency_us": 39.11995499999999
+        },
+        {
+          "volume": 155,
+          "latency_us": 41.17103714285713
+        },
+        {
+          "volume": 156,
+          "latency_us": 41.17103714285713
+        },
+        {
+          "volume": 160,
+          "latency_us": 41.17103714285713
+        },
+        {
+          "volume": 165,
+          "latency_us": 41.73648999999998
+        },
+        {
+          "volume": 210,
+          "latency_us": 41.73648999999998
+        },
+        {
+          "volume": 216,
+          "latency_us": 41.73648999999998
+        },
+        {
+          "volume": 222,
+          "latency_us": 47.18287499999998
+        },
+        {
+          "volume": 232,
+          "latency_us": 47.808852499999986
+        },
+        {
+          "volume": 240,
+          "latency_us": 47.808852499999986
+        },
+        {
+          "volume": 245,
+          "latency_us": 52.60297333333332
+        },
+        {
+          "volume": 255,
+          "latency_us": 56.18755666666664
+        },
+        {
+          "volume": 300,
+          "latency_us": 56.18755666666664
+        },
+        {
+          "volume": 304,
+          "latency_us": 56.18755666666664
+        },
+        {
+          "volume": 329,
+          "latency_us": 68.83088818181817
+        },
+        {
+          "volume": 354,
+          "latency_us": 68.83088818181817
+        },
+        {
+          "volume": 380,
+          "latency_us": 68.83088818181817
+        },
+        {
+          "volume": 390,
+          "latency_us": 68.83088818181817
+        },
+        {
+          "volume": 396,
+          "latency_us": 68.83088818181817
+        },
+        {
+          "volume": 400,
+          "latency_us": 69.94808799999998
+        },
+        {
+          "volume": 402,
+          "latency_us": 69.94808799999998
+        },
+        {
+          "volume": 408,
+          "latency_us": 69.94808799999998
+        },
+        {
+          "volume": 511,
+          "latency_us": 101.50595
+        },
+        {
+          "volume": 552,
+          "latency_us": 101.50595
+        },
+        {
+          "volume": 650,
+          "latency_us": 106.48781499999998
+        },
+        {
+          "volume": 660,
+          "latency_us": 106.48781499999998
+        },
+        {
+          "volume": 736,
+          "latency_us": 107.741066
+        },
+        {
+          "volume": 744,
+          "latency_us": 107.741066
+        },
+        {
+          "volume": 750,
+          "latency_us": 107.741066
+        },
+        {
+          "volume": 756,
+          "latency_us": 112.14556499999998
+        },
+        {
+          "volume": 762,
+          "latency_us": 113.80698999999998
+        },
+        {
+          "volume": 784,
+          "latency_us": 140.21940999999998
+        },
+        {
+          "volume": 948,
+          "latency_us": 152.02766999999997
+        },
+        {
+          "volume": 1190,
+          "latency_us": 174.29405666666665
+        },
+        {
+          "volume": 1200,
+          "latency_us": 175.89682999999997
+        },
+        {
+          "volume": 1330,
+          "latency_us": 211.03674999999998
+        },
+        {
+          "volume": 1408,
+          "latency_us": 213.80116999999998
+        },
+        {
+          "volume": 1416,
+          "latency_us": 224.71096
+        },
+        {
+          "volume": 1740,
+          "latency_us": 242.24224999999993
+        },
+        {
+          "volume": 2270,
+          "latency_us": 310.17244
+        },
+        {
+          "volume": 2280,
+          "latency_us": 325.195
+        },
+        {
+          "volume": 2422,
+          "latency_us": 534.1856699999998
+        },
+        {
+          "volume": 3324,
+          "latency_us": 534.1856699999998
+        },
+        {
+          "volume": 4606,
+          "latency_us": 741.49142
+        }
+      ],
+      "case_rmse_us": 10.770305949107724,
+      "case_median_absolute_relative_error": 0.0822305063242145,
+      "held_out_footprint_median_absolute_relative_error": 0.12577987022857764
+    }
+  },
+  "measured_cases": 114,
+  "missing_cases": [],
+  "measured_spatial_masks": 19,
+  "measured_proxy_volume_range": [
+    3,
+    4606
+  ],
+  "measured_proxy_volumes": [
+    3,
+    5,
+    8,
+    14,
+    18,
+    22,
+    26,
+    30,
+    34,
+    45,
+    48,
+    50,
+    51,
+    52,
+    57,
+    75,
+    81,
+    84,
+    87,
+    88,
+    92,
+    100,
+    120,
+    126,
+    132,
+    148,
+    155,
+    156,
+    160,
+    165,
+    210,
+    216,
+    222,
+    232,
+    240,
+    245,
+    255,
+    300,
+    304,
+    329,
+    354,
+    380,
+    390,
+    396,
+    400,
+    402,
+    408,
+    511,
+    552,
+    650,
+    660,
+    736,
+    744,
+    750,
+    756,
+    762,
+    784,
+    948,
+    1190,
+    1200,
+    1330,
+    1408,
+    1416,
+    1740,
+    2270,
+    2280,
+    2422,
+    3324,
+    4606
+  ],
+  "timing_scope": "synchronous decoder API call; excludes input loading, graph build, unpacking, and QPU transport",
+  "provenance": {
+    "timings_sha256": "42e8f26712c3762488fcb351f3baf26ecfe49b404005d7a728cd82b722f96116",
+    "manifest_sha256": "5ae28306979776f71180927c63cc863f38f90cf63017570c63a9f703917a6a08",
+    "environment": {
+      "platform": "Linux-6.14.0-37-generic-aarch64-with-glibc2.41",
+      "python": "3.10.18",
+      "stim": "1.16.0",
+      "numpy": "1.26.4",
+      "backend": "pymatching",
+      "timer": "perf_counter_ns",
+      "timing_scope": "synchronous decoder API call; excludes input loading, graph build, unpacking, and QPU transport",
+      "shots_requested": 1000,
+      "repeats": 1,
+      "warmup_shots": 32,
+      "cases": 114,
+      "dataset": "decoder-benchmark-data/d3-coupled-surgery",
+      "complete": true,
+      "scope": "One independent full experiment per decode; representative surgery dataset, not exact SWIPER interior windows",
+      "pymatching": "2.4.0"
+    }
+  },
+  "limitations": [
+    "Geometry, commit/buffer roles, and temporal boundary messages are not callback inputs.",
+    "Representative full-circuit timings do not establish exact SWIPER window calibration.",
+    "The monotone curve interpolates and extrapolates; it is not a measured lookup for every volume.",
+    "A deterministic fitted p95 curve is a sensitivity scenario, not a stochastic tail-latency simulation.",
+    "Only measurements on the intended decoder/hardware calibrate that target."
+  ]
+}

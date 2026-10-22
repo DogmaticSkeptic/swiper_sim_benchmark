@@ -1,0 +1,11 @@
+{
+  "all_packed_file_sizes_and_padding_valid": true,
+  "all_shots_measurement_to_detector_conversion_matches": true,
+  "noiseless_detectors_and_observables_zero": true,
+  "pymatching_decoded_shots": 1000,
+  "pymatching_shot_failures": 234,
+  "logical_failures_expected_under_noise": true,
+  "shortest_graphlike_logical_error": 3,
+  "every_merge_has_bridge_entangling_gates": true,
+  "detector_release_packets_verified": true
+}

@@ -1,0 +1,1 @@
+Two small decoder-I/O fixtures (16 paired shots each), extracted from the distance-3 Z-input/output TQEC memory controls at p=0.001. These test the custom-backend benchmark/fitter interface without requiring the generated corpus. Only the DEM, detector samples, observables, and metadata needed by that interface are included.

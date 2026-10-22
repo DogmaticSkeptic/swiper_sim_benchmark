@@ -1,0 +1,18 @@
+{
+  "cases": 114,
+  "spatial_masks": 19,
+  "coupled_cases": 108,
+  "single_patch_controls": 6,
+  "shots_per_case": 1000,
+  "total_shots": 114000,
+  "logical_input_output_basis": "Z",
+  "p": 0.001,
+  "unit_checks_passed": 7,
+  "all_saved_shots_paired_conversion_checked_and_decoded": true,
+  "all_circuits_shortest_graphlike_logical_error_length": 3,
+  "independent_physical_coupling_and_packet_audit_passed": true,
+  "physically_coupled_merge_phases_audited": 318,
+  "reference_benchmark_all_cases_passed": true,
+  "single_and_batch_decoding_failure_counts_agree": true,
+  "scope": "Representative full merge/split experiments, not exact SWIPER interior windows"
+}

@@ -1,0 +1,3500 @@
+{
+  "schema_version": 1,
+  "circuit_family": "TQEC sequential adjacent merge/split",
+  "coupled_lattice_surgery": true,
+  "single_patch_memory_control": false,
+  "interior_window": false,
+  "exact_swiper_window": false,
+  "spatial_shape": {
+    "base_shape_id": "d1c87fb5ba499431cdfd",
+    "bbox_patch_rows": 1,
+    "bbox_patch_cols": 2,
+    "nominal_data_rows": 3,
+    "nominal_data_cols": 6,
+    "occupied_patch_count": 2,
+    "nominal_occupied_data_area": 18,
+    "rectangular_footprint": true,
+    "occupied_patches": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "occurrences": 188859,
+    "runs": [
+      "H2:aligned",
+      "H2:parallel",
+      "H2:sliding",
+      "adder_n18:aligned",
+      "adder_n18:parallel",
+      "adder_n18:sliding",
+      "carleman_2_4:aligned",
+      "carleman_2_4:parallel",
+      "carleman_2_4:sliding",
+      "fermi_hubbard_2_2_Kagome:aligned",
+      "fermi_hubbard_2_2_Kagome:parallel",
+      "fermi_hubbard_2_2_Kagome:sliding",
+      "fermi_hubbard_2_2_Square:aligned",
+      "fermi_hubbard_2_2_Square:parallel",
+      "fermi_hubbard_2_2_Square:sliding",
+      "fermi_hubbard_4_4_Square:aligned",
+      "fermi_hubbard_4_4_Square:parallel",
+      "fermi_hubbard_4_4_Square:sliding",
+      "grover_ancilla_5:aligned",
+      "grover_ancilla_5:parallel",
+      "grover_ancilla_5:sliding",
+      "heisenberg_3:aligned",
+      "heisenberg_3:parallel",
+      "heisenberg_3:sliding",
+      "msd_15to1:sliding",
+      "qft_10:aligned",
+      "qft_10:parallel",
+      "qft_10:sliding",
+      "qpeexact_10:aligned",
+      "qpeexact_10:parallel",
+      "qpeexact_10:sliding",
+      "qpeexact_5:aligned",
+      "qpeexact_5:parallel",
+      "qpeexact_5:sliding",
+      "qrom_15_15:aligned",
+      "qrom_15_15:parallel",
+      "qrom_15_15:sliding",
+      "random_t/random_t_1000_200_0:aligned",
+      "random_t/random_t_1000_200_0:parallel",
+      "random_t/random_t_1000_200_0:sliding",
+      "random_t/random_t_1000_200_10:aligned",
+      "random_t/random_t_1000_200_10:parallel",
+      "random_t/random_t_1000_200_10:sliding",
+      "random_t/random_t_1000_200_11:aligned",
+      "random_t/random_t_1000_200_11:parallel",
+      "random_t/random_t_1000_200_11:sliding",
+      "random_t/random_t_1000_200_12:aligned",
+      "random_t/random_t_1000_200_12:parallel",
+      "random_t/random_t_1000_200_12:sliding",
+      "random_t/random_t_1000_200_13:aligned",
+      "random_t/random_t_1000_200_13:parallel",
+      "random_t/random_t_1000_200_13:sliding",
+      "random_t/random_t_1000_200_14:aligned",
+      "random_t/random_t_1000_200_14:parallel",
+      "random_t/random_t_1000_200_14:sliding",
+      "random_t/random_t_1000_200_15:aligned",
+      "random_t/random_t_1000_200_15:parallel",
+      "random_t/random_t_1000_200_15:sliding",
+      "random_t/random_t_1000_200_16:aligned",
+      "random_t/random_t_1000_200_16:parallel",
+      "random_t/random_t_1000_200_16:sliding",
+      "random_t/random_t_1000_200_17:aligned",
+      "random_t/random_t_1000_200_17:parallel",
+      "random_t/random_t_1000_200_17:sliding",
+      "random_t/random_t_1000_200_18:aligned",
+      "random_t/random_t_1000_200_18:parallel",
+      "random_t/random_t_1000_200_18:sliding",
+      "random_t/random_t_1000_200_19:aligned",
+      "random_t/random_t_1000_200_19:parallel",
+      "random_t/random_t_1000_200_19:sliding",
+      "random_t/random_t_1000_200_1:aligned",
+      "random_t/random_t_1000_200_1:parallel",
+      "random_t/random_t_1000_200_1:sliding",
+      "random_t/random_t_1000_200_2:aligned",
+      "random_t/random_t_1000_200_2:parallel",
+      "random_t/random_t_1000_200_2:sliding",
+      "random_t/random_t_1000_200_3:aligned",
+      "random_t/random_t_1000_200_3:parallel",
+      "random_t/random_t_1000_200_3:sliding",
+      "random_t/random_t_1000_200_4:aligned",
+      "random_t/random_t_1000_200_4:parallel",
+      "random_t/random_t_1000_200_4:sliding",
+      "random_t/random_t_1000_200_5:aligned",
+      "random_t/random_t_1000_200_5:parallel",
+      "random_t/random_t_1000_200_5:sliding",
+      "random_t/random_t_1000_200_6:aligned",
+      "random_t/random_t_1000_200_6:parallel",
+      "random_t/random_t_1000_200_6:sliding",
+      "random_t/random_t_1000_200_7:aligned",
+      "random_t/random_t_1000_200_7:parallel",
+      "random_t/random_t_1000_200_7:sliding",
+      "random_t/random_t_1000_200_8:aligned",
+      "random_t/random_t_1000_200_8:parallel",
+      "random_t/random_t_1000_200_8:sliding",
+      "random_t/random_t_1000_200_9:aligned",
+      "random_t/random_t_1000_200_9:parallel",
+      "random_t/random_t_1000_200_9:sliding",
+      "random_t_10000_200_0:aligned",
+      "random_t_10000_200_0:parallel",
+      "random_t_10000_200_0:sliding",
+      "random_t_1000_200_0:aligned",
+      "random_t_1000_200_0:parallel",
+      "random_t_1000_200_0:sliding",
+      "regular_t_1000_0:aligned",
+      "regular_t_1000_0:parallel",
+      "regular_t_1000_0:sliding",
+      "toffoli:aligned",
+      "toffoli:parallel",
+      "toffoli:sliding"
+    ]
+  },
+  "distance": 3,
+  "circuit_graphlike_distance": 3,
+  "basis": "Z input/output boundaries; vertical merges include temporal Hadamard orientation changes",
+  "noise": {
+    "model": "TQEC uniform_depolarizing",
+    "p": 0.001
+  },
+  "shots": 1000,
+  "seed": 5841712300699283915,
+  "bulk_rounds_per_phase": 6,
+  "rounds": 24,
+  "total_measurement_rounds": 24,
+  "logical_phase_count": 3,
+  "schedule_segment_count": 3,
+  "phases": [
+    {
+      "logical_phase_index": 0,
+      "kind": "separate",
+      "merge_edge": null,
+      "round_range": [
+        0,
+        8
+      ],
+      "bridge_entangling_gate_count": 0
+    },
+    {
+      "logical_phase_index": 1,
+      "kind": "merge",
+      "merge_edge": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "round_range": [
+        8,
+        16
+      ],
+      "bridge_entangling_gate_count": 80
+    },
+    {
+      "logical_phase_index": 2,
+      "kind": "split_separate",
+      "merge_edge": null,
+      "round_range": [
+        16,
+        24
+      ],
+      "bridge_entangling_gate_count": 0
+    }
+  ],
+  "num_active_physical_qubits": 53,
+  "qubit_index_upper_bound": 53,
+  "files": {
+    "measurements.b8": {
+      "format": "b8",
+      "bits_per_shot": 437,
+      "bytes_per_shot": 55
+    },
+    "detections.b8": {
+      "format": "b8",
+      "bits_per_shot": 412,
+      "bytes_per_shot": 52
+    },
+    "observables.b8": {
+      "format": "b8",
+      "bits_per_shot": 1,
+      "bytes_per_shot": 1
+    }
+  },
+  "packing": "Shot-major, little-endian bits, byte padding per shot",
+  "shot_semantics": "Fresh initialized and finally read-out full surgery experiment per shot",
+  "packets": [
+    {
+      "measurement_range": [
+        0,
+        16
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "packet_index": 0,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 0
+    },
+    {
+      "measurement_range": [
+        16,
+        32
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "packet_index": 1,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 1
+    },
+    {
+      "measurement_range": [
+        32,
+        48
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "packet_index": 2,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 2
+    },
+    {
+      "measurement_range": [
+        48,
+        64
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55
+      ],
+      "packet_index": 3,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 3
+    },
+    {
+      "measurement_range": [
+        64,
+        80
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "packet_index": 4,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 4
+    },
+    {
+      "measurement_range": [
+        80,
+        96
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87
+      ],
+      "packet_index": 5,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 5
+    },
+    {
+      "measurement_range": [
+        96,
+        112
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ],
+      "packet_index": 6,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 6
+    },
+    {
+      "measurement_range": [
+        112,
+        128
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119
+      ],
+      "packet_index": 7,
+      "schedule_segment_index": 0,
+      "logical_phase_index": 0,
+      "phase_kind": "separate",
+      "round_in_segment": 7
+    },
+    {
+      "measurement_range": [
+        128,
+        148
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135
+      ],
+      "packet_index": 8,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 0
+    },
+    {
+      "measurement_range": [
+        148,
+        168
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "packet_index": 9,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 1
+    },
+    {
+      "measurement_range": [
+        168,
+        188
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175
+      ],
+      "packet_index": 10,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 2
+    },
+    {
+      "measurement_range": [
+        188,
+        208
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195
+      ],
+      "packet_index": 11,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 3
+    },
+    {
+      "measurement_range": [
+        208,
+        228
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215
+      ],
+      "packet_index": 12,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 4
+    },
+    {
+      "measurement_range": [
+        228,
+        248
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235
+      ],
+      "packet_index": 13,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 5
+    },
+    {
+      "measurement_range": [
+        248,
+        268
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "packet_index": 14,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 6
+    },
+    {
+      "measurement_range": [
+        268,
+        291
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        21,
+        22,
+        23,
+        29,
+        30,
+        31,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50,
+        25,
+        26,
+        27
+      ],
+      "detector_indices": [
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275
+      ],
+      "packet_index": 15,
+      "schedule_segment_index": 1,
+      "logical_phase_index": 1,
+      "phase_kind": "merge",
+      "round_in_segment": 7
+    },
+    {
+      "measurement_range": [
+        291,
+        307
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291
+      ],
+      "packet_index": 16,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 0
+    },
+    {
+      "measurement_range": [
+        307,
+        323
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307
+      ],
+      "packet_index": 17,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 1
+    },
+    {
+      "measurement_range": [
+        323,
+        339
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        308,
+        309,
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323
+      ],
+      "packet_index": 18,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 2
+    },
+    {
+      "measurement_range": [
+        339,
+        355
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337,
+        338,
+        339
+      ],
+      "packet_index": 19,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 3
+    },
+    {
+      "measurement_range": [
+        355,
+        371
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        340,
+        341,
+        342,
+        343,
+        344,
+        345,
+        346,
+        347,
+        348,
+        349,
+        350,
+        351,
+        352,
+        353,
+        354,
+        355
+      ],
+      "packet_index": 20,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 4
+    },
+    {
+      "measurement_range": [
+        371,
+        387
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        356,
+        357,
+        358,
+        359,
+        360,
+        361,
+        362,
+        363,
+        364,
+        365,
+        366,
+        367,
+        368,
+        369,
+        370,
+        371
+      ],
+      "packet_index": 21,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 5
+    },
+    {
+      "measurement_range": [
+        387,
+        403
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50
+      ],
+      "detector_indices": [
+        372,
+        373,
+        374,
+        375,
+        376,
+        377,
+        378,
+        379,
+        380,
+        381,
+        382,
+        383,
+        384,
+        385,
+        386,
+        387
+      ],
+      "packet_index": 22,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 6
+    },
+    {
+      "measurement_range": [
+        403,
+        437
+      ],
+      "measured_qubits": [
+        2,
+        7,
+        8,
+        9,
+        15,
+        16,
+        17,
+        22,
+        30,
+        35,
+        36,
+        37,
+        43,
+        44,
+        45,
+        50,
+        4,
+        5,
+        6,
+        11,
+        12,
+        13,
+        18,
+        19,
+        20,
+        32,
+        33,
+        34,
+        39,
+        40,
+        41,
+        46,
+        47,
+        48
+      ],
+      "detector_indices": [
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411
+      ],
+      "packet_index": 23,
+      "schedule_segment_index": 2,
+      "logical_phase_index": 2,
+      "phase_kind": "split_separate",
+      "round_in_segment": 7
+    }
+  ],
+  "detector_coordinates": {
+    "0": [
+      10.0,
+      2.0,
+      0.0
+    ],
+    "1": [
+      0.0,
+      4.0,
+      0.0
+    ],
+    "2": [
+      8.0,
+      4.0,
+      0.0
+    ],
+    "3": [
+      4.0,
+      4.0,
+      0.0
+    ],
+    "4": [
+      2.0,
+      2.0,
+      0.0
+    ],
+    "5": [
+      12.0,
+      4.0,
+      0.0
+    ],
+    "6": [
+      6.0,
+      2.0,
+      0.0
+    ],
+    "7": [
+      14.0,
+      2.0,
+      0.0
+    ],
+    "8": [
+      2.0,
+      2.0,
+      1.0
+    ],
+    "9": [
+      4.0,
+      2.0,
+      1.0
+    ],
+    "10": [
+      10.0,
+      0.0,
+      1.0
+    ],
+    "11": [
+      2.0,
+      0.0,
+      1.0
+    ],
+    "12": [
+      6.0,
+      2.0,
+      1.0
+    ],
+    "13": [
+      10.0,
+      2.0,
+      1.0
+    ],
+    "14": [
+      12.0,
+      2.0,
+      1.0
+    ],
+    "15": [
+      14.0,
+      2.0,
+      1.0
+    ],
+    "16": [
+      0.0,
+      4.0,
+      1.0
+    ],
+    "17": [
+      2.0,
+      4.0,
+      1.0
+    ],
+    "18": [
+      4.0,
+      4.0,
+      1.0
+    ],
+    "19": [
+      8.0,
+      4.0,
+      1.0
+    ],
+    "20": [
+      10.0,
+      4.0,
+      1.0
+    ],
+    "21": [
+      12.0,
+      4.0,
+      1.0
+    ],
+    "22": [
+      4.0,
+      6.0,
+      1.0
+    ],
+    "23": [
+      12.0,
+      6.0,
+      1.0
+    ],
+    "24": [
+      2.0,
+      2.0,
+      2.0
+    ],
+    "25": [
+      4.0,
+      2.0,
+      2.0
+    ],
+    "26": [
+      10.0,
+      0.0,
+      2.0
+    ],
+    "27": [
+      2.0,
+      0.0,
+      2.0
+    ],
+    "28": [
+      6.0,
+      2.0,
+      2.0
+    ],
+    "29": [
+      10.0,
+      2.0,
+      2.0
+    ],
+    "30": [
+      12.0,
+      2.0,
+      2.0
+    ],
+    "31": [
+      14.0,
+      2.0,
+      2.0
+    ],
+    "32": [
+      0.0,
+      4.0,
+      2.0
+    ],
+    "33": [
+      2.0,
+      4.0,
+      2.0
+    ],
+    "34": [
+      4.0,
+      4.0,
+      2.0
+    ],
+    "35": [
+      8.0,
+      4.0,
+      2.0
+    ],
+    "36": [
+      10.0,
+      4.0,
+      2.0
+    ],
+    "37": [
+      12.0,
+      4.0,
+      2.0
+    ],
+    "38": [
+      4.0,
+      6.0,
+      2.0
+    ],
+    "39": [
+      12.0,
+      6.0,
+      2.0
+    ],
+    "40": [
+      2.0,
+      2.0,
+      3.0
+    ],
+    "41": [
+      4.0,
+      2.0,
+      3.0
+    ],
+    "42": [
+      10.0,
+      0.0,
+      3.0
+    ],
+    "43": [
+      2.0,
+      0.0,
+      3.0
+    ],
+    "44": [
+      6.0,
+      2.0,
+      3.0
+    ],
+    "45": [
+      10.0,
+      2.0,
+      3.0
+    ],
+    "46": [
+      12.0,
+      2.0,
+      3.0
+    ],
+    "47": [
+      14.0,
+      2.0,
+      3.0
+    ],
+    "48": [
+      0.0,
+      4.0,
+      3.0
+    ],
+    "49": [
+      2.0,
+      4.0,
+      3.0
+    ],
+    "50": [
+      4.0,
+      4.0,
+      3.0
+    ],
+    "51": [
+      8.0,
+      4.0,
+      3.0
+    ],
+    "52": [
+      10.0,
+      4.0,
+      3.0
+    ],
+    "53": [
+      12.0,
+      4.0,
+      3.0
+    ],
+    "54": [
+      4.0,
+      6.0,
+      3.0
+    ],
+    "55": [
+      12.0,
+      6.0,
+      3.0
+    ],
+    "56": [
+      2.0,
+      2.0,
+      4.0
+    ],
+    "57": [
+      4.0,
+      2.0,
+      4.0
+    ],
+    "58": [
+      10.0,
+      0.0,
+      4.0
+    ],
+    "59": [
+      2.0,
+      0.0,
+      4.0
+    ],
+    "60": [
+      6.0,
+      2.0,
+      4.0
+    ],
+    "61": [
+      10.0,
+      2.0,
+      4.0
+    ],
+    "62": [
+      12.0,
+      2.0,
+      4.0
+    ],
+    "63": [
+      14.0,
+      2.0,
+      4.0
+    ],
+    "64": [
+      0.0,
+      4.0,
+      4.0
+    ],
+    "65": [
+      2.0,
+      4.0,
+      4.0
+    ],
+    "66": [
+      4.0,
+      4.0,
+      4.0
+    ],
+    "67": [
+      8.0,
+      4.0,
+      4.0
+    ],
+    "68": [
+      10.0,
+      4.0,
+      4.0
+    ],
+    "69": [
+      12.0,
+      4.0,
+      4.0
+    ],
+    "70": [
+      4.0,
+      6.0,
+      4.0
+    ],
+    "71": [
+      12.0,
+      6.0,
+      4.0
+    ],
+    "72": [
+      2.0,
+      2.0,
+      5.0
+    ],
+    "73": [
+      4.0,
+      2.0,
+      5.0
+    ],
+    "74": [
+      10.0,
+      0.0,
+      5.0
+    ],
+    "75": [
+      2.0,
+      0.0,
+      5.0
+    ],
+    "76": [
+      6.0,
+      2.0,
+      5.0
+    ],
+    "77": [
+      10.0,
+      2.0,
+      5.0
+    ],
+    "78": [
+      12.0,
+      2.0,
+      5.0
+    ],
+    "79": [
+      14.0,
+      2.0,
+      5.0
+    ],
+    "80": [
+      0.0,
+      4.0,
+      5.0
+    ],
+    "81": [
+      2.0,
+      4.0,
+      5.0
+    ],
+    "82": [
+      4.0,
+      4.0,
+      5.0
+    ],
+    "83": [
+      8.0,
+      4.0,
+      5.0
+    ],
+    "84": [
+      10.0,
+      4.0,
+      5.0
+    ],
+    "85": [
+      12.0,
+      4.0,
+      5.0
+    ],
+    "86": [
+      4.0,
+      6.0,
+      5.0
+    ],
+    "87": [
+      12.0,
+      6.0,
+      5.0
+    ],
+    "88": [
+      2.0,
+      2.0,
+      6.0
+    ],
+    "89": [
+      4.0,
+      2.0,
+      6.0
+    ],
+    "90": [
+      10.0,
+      0.0,
+      6.0
+    ],
+    "91": [
+      2.0,
+      0.0,
+      6.0
+    ],
+    "92": [
+      6.0,
+      2.0,
+      6.0
+    ],
+    "93": [
+      10.0,
+      2.0,
+      6.0
+    ],
+    "94": [
+      12.0,
+      2.0,
+      6.0
+    ],
+    "95": [
+      14.0,
+      2.0,
+      6.0
+    ],
+    "96": [
+      0.0,
+      4.0,
+      6.0
+    ],
+    "97": [
+      2.0,
+      4.0,
+      6.0
+    ],
+    "98": [
+      4.0,
+      4.0,
+      6.0
+    ],
+    "99": [
+      8.0,
+      4.0,
+      6.0
+    ],
+    "100": [
+      10.0,
+      4.0,
+      6.0
+    ],
+    "101": [
+      12.0,
+      4.0,
+      6.0
+    ],
+    "102": [
+      4.0,
+      6.0,
+      6.0
+    ],
+    "103": [
+      12.0,
+      6.0,
+      6.0
+    ],
+    "104": [
+      2.0,
+      2.0,
+      7.0
+    ],
+    "105": [
+      4.0,
+      2.0,
+      7.0
+    ],
+    "106": [
+      10.0,
+      0.0,
+      7.0
+    ],
+    "107": [
+      2.0,
+      0.0,
+      7.0
+    ],
+    "108": [
+      6.0,
+      2.0,
+      7.0
+    ],
+    "109": [
+      10.0,
+      2.0,
+      7.0
+    ],
+    "110": [
+      12.0,
+      2.0,
+      7.0
+    ],
+    "111": [
+      14.0,
+      2.0,
+      7.0
+    ],
+    "112": [
+      0.0,
+      4.0,
+      7.0
+    ],
+    "113": [
+      2.0,
+      4.0,
+      7.0
+    ],
+    "114": [
+      4.0,
+      4.0,
+      7.0
+    ],
+    "115": [
+      8.0,
+      4.0,
+      7.0
+    ],
+    "116": [
+      10.0,
+      4.0,
+      7.0
+    ],
+    "117": [
+      12.0,
+      4.0,
+      7.0
+    ],
+    "118": [
+      4.0,
+      6.0,
+      7.0
+    ],
+    "119": [
+      12.0,
+      6.0,
+      7.0
+    ],
+    "120": [
+      2.0,
+      2.0,
+      8.0
+    ],
+    "121": [
+      4.0,
+      2.0,
+      8.0
+    ],
+    "122": [
+      10.0,
+      0.0,
+      8.0
+    ],
+    "123": [
+      2.0,
+      0.0,
+      8.0
+    ],
+    "124": [
+      6.0,
+      2.0,
+      8.0
+    ],
+    "125": [
+      10.0,
+      2.0,
+      8.0
+    ],
+    "126": [
+      12.0,
+      2.0,
+      8.0
+    ],
+    "127": [
+      14.0,
+      2.0,
+      8.0
+    ],
+    "128": [
+      0.0,
+      4.0,
+      8.0
+    ],
+    "129": [
+      2.0,
+      4.0,
+      8.0
+    ],
+    "130": [
+      4.0,
+      4.0,
+      8.0
+    ],
+    "131": [
+      8.0,
+      4.0,
+      8.0
+    ],
+    "132": [
+      10.0,
+      4.0,
+      8.0
+    ],
+    "133": [
+      12.0,
+      4.0,
+      8.0
+    ],
+    "134": [
+      4.0,
+      6.0,
+      8.0
+    ],
+    "135": [
+      12.0,
+      6.0,
+      8.0
+    ],
+    "136": [
+      4.0,
+      6.0,
+      9.0
+    ],
+    "137": [
+      8.0,
+      6.0,
+      9.0
+    ],
+    "138": [
+      10.0,
+      0.0,
+      9.0
+    ],
+    "139": [
+      2.0,
+      2.0,
+      9.0
+    ],
+    "140": [
+      6.0,
+      0.0,
+      9.0
+    ],
+    "141": [
+      2.0,
+      0.0,
+      9.0
+    ],
+    "142": [
+      4.0,
+      2.0,
+      9.0
+    ],
+    "143": [
+      6.0,
+      2.0,
+      9.0
+    ],
+    "144": [
+      8.0,
+      2.0,
+      9.0
+    ],
+    "145": [
+      10.0,
+      2.0,
+      9.0
+    ],
+    "146": [
+      12.0,
+      2.0,
+      9.0
+    ],
+    "147": [
+      14.0,
+      2.0,
+      9.0
+    ],
+    "148": [
+      0.0,
+      4.0,
+      9.0
+    ],
+    "149": [
+      2.0,
+      4.0,
+      9.0
+    ],
+    "150": [
+      4.0,
+      4.0,
+      9.0
+    ],
+    "151": [
+      6.0,
+      4.0,
+      9.0
+    ],
+    "152": [
+      8.0,
+      4.0,
+      9.0
+    ],
+    "153": [
+      10.0,
+      4.0,
+      9.0
+    ],
+    "154": [
+      12.0,
+      4.0,
+      9.0
+    ],
+    "155": [
+      12.0,
+      6.0,
+      9.0
+    ],
+    "156": [
+      4.0,
+      6.0,
+      10.0
+    ],
+    "157": [
+      8.0,
+      6.0,
+      10.0
+    ],
+    "158": [
+      10.0,
+      0.0,
+      10.0
+    ],
+    "159": [
+      2.0,
+      2.0,
+      10.0
+    ],
+    "160": [
+      6.0,
+      0.0,
+      10.0
+    ],
+    "161": [
+      2.0,
+      0.0,
+      10.0
+    ],
+    "162": [
+      4.0,
+      2.0,
+      10.0
+    ],
+    "163": [
+      6.0,
+      2.0,
+      10.0
+    ],
+    "164": [
+      8.0,
+      2.0,
+      10.0
+    ],
+    "165": [
+      10.0,
+      2.0,
+      10.0
+    ],
+    "166": [
+      12.0,
+      2.0,
+      10.0
+    ],
+    "167": [
+      14.0,
+      2.0,
+      10.0
+    ],
+    "168": [
+      0.0,
+      4.0,
+      10.0
+    ],
+    "169": [
+      2.0,
+      4.0,
+      10.0
+    ],
+    "170": [
+      4.0,
+      4.0,
+      10.0
+    ],
+    "171": [
+      6.0,
+      4.0,
+      10.0
+    ],
+    "172": [
+      8.0,
+      4.0,
+      10.0
+    ],
+    "173": [
+      10.0,
+      4.0,
+      10.0
+    ],
+    "174": [
+      12.0,
+      4.0,
+      10.0
+    ],
+    "175": [
+      12.0,
+      6.0,
+      10.0
+    ],
+    "176": [
+      4.0,
+      6.0,
+      11.0
+    ],
+    "177": [
+      8.0,
+      6.0,
+      11.0
+    ],
+    "178": [
+      10.0,
+      0.0,
+      11.0
+    ],
+    "179": [
+      2.0,
+      2.0,
+      11.0
+    ],
+    "180": [
+      6.0,
+      0.0,
+      11.0
+    ],
+    "181": [
+      2.0,
+      0.0,
+      11.0
+    ],
+    "182": [
+      4.0,
+      2.0,
+      11.0
+    ],
+    "183": [
+      6.0,
+      2.0,
+      11.0
+    ],
+    "184": [
+      8.0,
+      2.0,
+      11.0
+    ],
+    "185": [
+      10.0,
+      2.0,
+      11.0
+    ],
+    "186": [
+      12.0,
+      2.0,
+      11.0
+    ],
+    "187": [
+      14.0,
+      2.0,
+      11.0
+    ],
+    "188": [
+      0.0,
+      4.0,
+      11.0
+    ],
+    "189": [
+      2.0,
+      4.0,
+      11.0
+    ],
+    "190": [
+      4.0,
+      4.0,
+      11.0
+    ],
+    "191": [
+      6.0,
+      4.0,
+      11.0
+    ],
+    "192": [
+      8.0,
+      4.0,
+      11.0
+    ],
+    "193": [
+      10.0,
+      4.0,
+      11.0
+    ],
+    "194": [
+      12.0,
+      4.0,
+      11.0
+    ],
+    "195": [
+      12.0,
+      6.0,
+      11.0
+    ],
+    "196": [
+      4.0,
+      6.0,
+      12.0
+    ],
+    "197": [
+      8.0,
+      6.0,
+      12.0
+    ],
+    "198": [
+      10.0,
+      0.0,
+      12.0
+    ],
+    "199": [
+      2.0,
+      2.0,
+      12.0
+    ],
+    "200": [
+      6.0,
+      0.0,
+      12.0
+    ],
+    "201": [
+      2.0,
+      0.0,
+      12.0
+    ],
+    "202": [
+      4.0,
+      2.0,
+      12.0
+    ],
+    "203": [
+      6.0,
+      2.0,
+      12.0
+    ],
+    "204": [
+      8.0,
+      2.0,
+      12.0
+    ],
+    "205": [
+      10.0,
+      2.0,
+      12.0
+    ],
+    "206": [
+      12.0,
+      2.0,
+      12.0
+    ],
+    "207": [
+      14.0,
+      2.0,
+      12.0
+    ],
+    "208": [
+      0.0,
+      4.0,
+      12.0
+    ],
+    "209": [
+      2.0,
+      4.0,
+      12.0
+    ],
+    "210": [
+      4.0,
+      4.0,
+      12.0
+    ],
+    "211": [
+      6.0,
+      4.0,
+      12.0
+    ],
+    "212": [
+      8.0,
+      4.0,
+      12.0
+    ],
+    "213": [
+      10.0,
+      4.0,
+      12.0
+    ],
+    "214": [
+      12.0,
+      4.0,
+      12.0
+    ],
+    "215": [
+      12.0,
+      6.0,
+      12.0
+    ],
+    "216": [
+      4.0,
+      6.0,
+      13.0
+    ],
+    "217": [
+      8.0,
+      6.0,
+      13.0
+    ],
+    "218": [
+      10.0,
+      0.0,
+      13.0
+    ],
+    "219": [
+      2.0,
+      2.0,
+      13.0
+    ],
+    "220": [
+      6.0,
+      0.0,
+      13.0
+    ],
+    "221": [
+      2.0,
+      0.0,
+      13.0
+    ],
+    "222": [
+      4.0,
+      2.0,
+      13.0
+    ],
+    "223": [
+      6.0,
+      2.0,
+      13.0
+    ],
+    "224": [
+      8.0,
+      2.0,
+      13.0
+    ],
+    "225": [
+      10.0,
+      2.0,
+      13.0
+    ],
+    "226": [
+      12.0,
+      2.0,
+      13.0
+    ],
+    "227": [
+      14.0,
+      2.0,
+      13.0
+    ],
+    "228": [
+      0.0,
+      4.0,
+      13.0
+    ],
+    "229": [
+      2.0,
+      4.0,
+      13.0
+    ],
+    "230": [
+      4.0,
+      4.0,
+      13.0
+    ],
+    "231": [
+      6.0,
+      4.0,
+      13.0
+    ],
+    "232": [
+      8.0,
+      4.0,
+      13.0
+    ],
+    "233": [
+      10.0,
+      4.0,
+      13.0
+    ],
+    "234": [
+      12.0,
+      4.0,
+      13.0
+    ],
+    "235": [
+      12.0,
+      6.0,
+      13.0
+    ],
+    "236": [
+      4.0,
+      6.0,
+      14.0
+    ],
+    "237": [
+      8.0,
+      6.0,
+      14.0
+    ],
+    "238": [
+      10.0,
+      0.0,
+      14.0
+    ],
+    "239": [
+      2.0,
+      2.0,
+      14.0
+    ],
+    "240": [
+      6.0,
+      0.0,
+      14.0
+    ],
+    "241": [
+      2.0,
+      0.0,
+      14.0
+    ],
+    "242": [
+      4.0,
+      2.0,
+      14.0
+    ],
+    "243": [
+      6.0,
+      2.0,
+      14.0
+    ],
+    "244": [
+      8.0,
+      2.0,
+      14.0
+    ],
+    "245": [
+      10.0,
+      2.0,
+      14.0
+    ],
+    "246": [
+      12.0,
+      2.0,
+      14.0
+    ],
+    "247": [
+      14.0,
+      2.0,
+      14.0
+    ],
+    "248": [
+      0.0,
+      4.0,
+      14.0
+    ],
+    "249": [
+      2.0,
+      4.0,
+      14.0
+    ],
+    "250": [
+      4.0,
+      4.0,
+      14.0
+    ],
+    "251": [
+      6.0,
+      4.0,
+      14.0
+    ],
+    "252": [
+      8.0,
+      4.0,
+      14.0
+    ],
+    "253": [
+      10.0,
+      4.0,
+      14.0
+    ],
+    "254": [
+      12.0,
+      4.0,
+      14.0
+    ],
+    "255": [
+      12.0,
+      6.0,
+      14.0
+    ],
+    "256": [
+      4.0,
+      6.0,
+      15.0
+    ],
+    "257": [
+      8.0,
+      6.0,
+      15.0
+    ],
+    "258": [
+      10.0,
+      0.0,
+      15.0
+    ],
+    "259": [
+      2.0,
+      2.0,
+      15.0
+    ],
+    "260": [
+      6.0,
+      0.0,
+      15.0
+    ],
+    "261": [
+      2.0,
+      0.0,
+      15.0
+    ],
+    "262": [
+      4.0,
+      2.0,
+      15.0
+    ],
+    "263": [
+      6.0,
+      2.0,
+      15.0
+    ],
+    "264": [
+      8.0,
+      2.0,
+      15.0
+    ],
+    "265": [
+      10.0,
+      2.0,
+      15.0
+    ],
+    "266": [
+      12.0,
+      2.0,
+      15.0
+    ],
+    "267": [
+      14.0,
+      2.0,
+      15.0
+    ],
+    "268": [
+      0.0,
+      4.0,
+      15.0
+    ],
+    "269": [
+      2.0,
+      4.0,
+      15.0
+    ],
+    "270": [
+      4.0,
+      4.0,
+      15.0
+    ],
+    "271": [
+      6.0,
+      4.0,
+      15.0
+    ],
+    "272": [
+      8.0,
+      4.0,
+      15.0
+    ],
+    "273": [
+      10.0,
+      4.0,
+      15.0
+    ],
+    "274": [
+      12.0,
+      4.0,
+      15.0
+    ],
+    "275": [
+      12.0,
+      6.0,
+      15.0
+    ],
+    "276": [
+      6.0,
+      2.0,
+      16.0
+    ],
+    "277": [
+      2.0,
+      2.0,
+      16.0
+    ],
+    "278": [
+      4.0,
+      2.0,
+      16.0
+    ],
+    "279": [
+      10.0,
+      0.0,
+      16.0
+    ],
+    "280": [
+      2.0,
+      0.0,
+      16.0
+    ],
+    "281": [
+      10.0,
+      2.0,
+      16.0
+    ],
+    "282": [
+      12.0,
+      2.0,
+      16.0
+    ],
+    "283": [
+      14.0,
+      2.0,
+      16.0
+    ],
+    "284": [
+      0.0,
+      4.0,
+      16.0
+    ],
+    "285": [
+      2.0,
+      4.0,
+      16.0
+    ],
+    "286": [
+      4.0,
+      4.0,
+      16.0
+    ],
+    "287": [
+      8.0,
+      4.0,
+      16.0
+    ],
+    "288": [
+      10.0,
+      4.0,
+      16.0
+    ],
+    "289": [
+      12.0,
+      4.0,
+      16.0
+    ],
+    "290": [
+      4.0,
+      6.0,
+      16.0
+    ],
+    "291": [
+      12.0,
+      6.0,
+      16.0
+    ],
+    "292": [
+      2.0,
+      2.0,
+      17.0
+    ],
+    "293": [
+      4.0,
+      2.0,
+      17.0
+    ],
+    "294": [
+      10.0,
+      0.0,
+      17.0
+    ],
+    "295": [
+      2.0,
+      0.0,
+      17.0
+    ],
+    "296": [
+      6.0,
+      2.0,
+      17.0
+    ],
+    "297": [
+      10.0,
+      2.0,
+      17.0
+    ],
+    "298": [
+      12.0,
+      2.0,
+      17.0
+    ],
+    "299": [
+      14.0,
+      2.0,
+      17.0
+    ],
+    "300": [
+      0.0,
+      4.0,
+      17.0
+    ],
+    "301": [
+      2.0,
+      4.0,
+      17.0
+    ],
+    "302": [
+      4.0,
+      4.0,
+      17.0
+    ],
+    "303": [
+      8.0,
+      4.0,
+      17.0
+    ],
+    "304": [
+      10.0,
+      4.0,
+      17.0
+    ],
+    "305": [
+      12.0,
+      4.0,
+      17.0
+    ],
+    "306": [
+      4.0,
+      6.0,
+      17.0
+    ],
+    "307": [
+      12.0,
+      6.0,
+      17.0
+    ],
+    "308": [
+      2.0,
+      2.0,
+      18.0
+    ],
+    "309": [
+      4.0,
+      2.0,
+      18.0
+    ],
+    "310": [
+      10.0,
+      0.0,
+      18.0
+    ],
+    "311": [
+      2.0,
+      0.0,
+      18.0
+    ],
+    "312": [
+      6.0,
+      2.0,
+      18.0
+    ],
+    "313": [
+      10.0,
+      2.0,
+      18.0
+    ],
+    "314": [
+      12.0,
+      2.0,
+      18.0
+    ],
+    "315": [
+      14.0,
+      2.0,
+      18.0
+    ],
+    "316": [
+      0.0,
+      4.0,
+      18.0
+    ],
+    "317": [
+      2.0,
+      4.0,
+      18.0
+    ],
+    "318": [
+      4.0,
+      4.0,
+      18.0
+    ],
+    "319": [
+      8.0,
+      4.0,
+      18.0
+    ],
+    "320": [
+      10.0,
+      4.0,
+      18.0
+    ],
+    "321": [
+      12.0,
+      4.0,
+      18.0
+    ],
+    "322": [
+      4.0,
+      6.0,
+      18.0
+    ],
+    "323": [
+      12.0,
+      6.0,
+      18.0
+    ],
+    "324": [
+      2.0,
+      2.0,
+      19.0
+    ],
+    "325": [
+      4.0,
+      2.0,
+      19.0
+    ],
+    "326": [
+      10.0,
+      0.0,
+      19.0
+    ],
+    "327": [
+      2.0,
+      0.0,
+      19.0
+    ],
+    "328": [
+      6.0,
+      2.0,
+      19.0
+    ],
+    "329": [
+      10.0,
+      2.0,
+      19.0
+    ],
+    "330": [
+      12.0,
+      2.0,
+      19.0
+    ],
+    "331": [
+      14.0,
+      2.0,
+      19.0
+    ],
+    "332": [
+      0.0,
+      4.0,
+      19.0
+    ],
+    "333": [
+      2.0,
+      4.0,
+      19.0
+    ],
+    "334": [
+      4.0,
+      4.0,
+      19.0
+    ],
+    "335": [
+      8.0,
+      4.0,
+      19.0
+    ],
+    "336": [
+      10.0,
+      4.0,
+      19.0
+    ],
+    "337": [
+      12.0,
+      4.0,
+      19.0
+    ],
+    "338": [
+      4.0,
+      6.0,
+      19.0
+    ],
+    "339": [
+      12.0,
+      6.0,
+      19.0
+    ],
+    "340": [
+      2.0,
+      2.0,
+      20.0
+    ],
+    "341": [
+      4.0,
+      2.0,
+      20.0
+    ],
+    "342": [
+      10.0,
+      0.0,
+      20.0
+    ],
+    "343": [
+      2.0,
+      0.0,
+      20.0
+    ],
+    "344": [
+      6.0,
+      2.0,
+      20.0
+    ],
+    "345": [
+      10.0,
+      2.0,
+      20.0
+    ],
+    "346": [
+      12.0,
+      2.0,
+      20.0
+    ],
+    "347": [
+      14.0,
+      2.0,
+      20.0
+    ],
+    "348": [
+      0.0,
+      4.0,
+      20.0
+    ],
+    "349": [
+      2.0,
+      4.0,
+      20.0
+    ],
+    "350": [
+      4.0,
+      4.0,
+      20.0
+    ],
+    "351": [
+      8.0,
+      4.0,
+      20.0
+    ],
+    "352": [
+      10.0,
+      4.0,
+      20.0
+    ],
+    "353": [
+      12.0,
+      4.0,
+      20.0
+    ],
+    "354": [
+      4.0,
+      6.0,
+      20.0
+    ],
+    "355": [
+      12.0,
+      6.0,
+      20.0
+    ],
+    "356": [
+      2.0,
+      2.0,
+      21.0
+    ],
+    "357": [
+      4.0,
+      2.0,
+      21.0
+    ],
+    "358": [
+      10.0,
+      0.0,
+      21.0
+    ],
+    "359": [
+      2.0,
+      0.0,
+      21.0
+    ],
+    "360": [
+      6.0,
+      2.0,
+      21.0
+    ],
+    "361": [
+      10.0,
+      2.0,
+      21.0
+    ],
+    "362": [
+      12.0,
+      2.0,
+      21.0
+    ],
+    "363": [
+      14.0,
+      2.0,
+      21.0
+    ],
+    "364": [
+      0.0,
+      4.0,
+      21.0
+    ],
+    "365": [
+      2.0,
+      4.0,
+      21.0
+    ],
+    "366": [
+      4.0,
+      4.0,
+      21.0
+    ],
+    "367": [
+      8.0,
+      4.0,
+      21.0
+    ],
+    "368": [
+      10.0,
+      4.0,
+      21.0
+    ],
+    "369": [
+      12.0,
+      4.0,
+      21.0
+    ],
+    "370": [
+      4.0,
+      6.0,
+      21.0
+    ],
+    "371": [
+      12.0,
+      6.0,
+      21.0
+    ],
+    "372": [
+      2.0,
+      2.0,
+      22.0
+    ],
+    "373": [
+      4.0,
+      2.0,
+      22.0
+    ],
+    "374": [
+      10.0,
+      0.0,
+      22.0
+    ],
+    "375": [
+      2.0,
+      0.0,
+      22.0
+    ],
+    "376": [
+      6.0,
+      2.0,
+      22.0
+    ],
+    "377": [
+      10.0,
+      2.0,
+      22.0
+    ],
+    "378": [
+      12.0,
+      2.0,
+      22.0
+    ],
+    "379": [
+      14.0,
+      2.0,
+      22.0
+    ],
+    "380": [
+      0.0,
+      4.0,
+      22.0
+    ],
+    "381": [
+      2.0,
+      4.0,
+      22.0
+    ],
+    "382": [
+      4.0,
+      4.0,
+      22.0
+    ],
+    "383": [
+      8.0,
+      4.0,
+      22.0
+    ],
+    "384": [
+      10.0,
+      4.0,
+      22.0
+    ],
+    "385": [
+      12.0,
+      4.0,
+      22.0
+    ],
+    "386": [
+      4.0,
+      6.0,
+      22.0
+    ],
+    "387": [
+      12.0,
+      6.0,
+      22.0
+    ],
+    "388": [
+      4.0,
+      4.0,
+      23.0
+    ],
+    "389": [
+      2.0,
+      2.0,
+      23.0
+    ],
+    "390": [
+      0.0,
+      4.0,
+      23.0
+    ],
+    "391": [
+      10.0,
+      2.0,
+      23.0
+    ],
+    "392": [
+      8.0,
+      4.0,
+      23.0
+    ],
+    "393": [
+      12.0,
+      4.0,
+      23.0
+    ],
+    "394": [
+      6.0,
+      2.0,
+      23.0
+    ],
+    "395": [
+      2.0,
+      2.0,
+      23.0
+    ],
+    "396": [
+      4.0,
+      2.0,
+      23.0
+    ],
+    "397": [
+      10.0,
+      0.0,
+      23.0
+    ],
+    "398": [
+      2.0,
+      0.0,
+      23.0
+    ],
+    "399": [
+      6.0,
+      2.0,
+      23.0
+    ],
+    "400": [
+      10.0,
+      2.0,
+      23.0
+    ],
+    "401": [
+      12.0,
+      2.0,
+      23.0
+    ],
+    "402": [
+      14.0,
+      2.0,
+      23.0
+    ],
+    "403": [
+      0.0,
+      4.0,
+      23.0
+    ],
+    "404": [
+      2.0,
+      4.0,
+      23.0
+    ],
+    "405": [
+      4.0,
+      4.0,
+      23.0
+    ],
+    "406": [
+      8.0,
+      4.0,
+      23.0
+    ],
+    "407": [
+      10.0,
+      4.0,
+      23.0
+    ],
+    "408": [
+      12.0,
+      4.0,
+      23.0
+    ],
+    "409": [
+      4.0,
+      6.0,
+      23.0
+    ],
+    "410": [
+      12.0,
+      6.0,
+      23.0
+    ],
+    "411": [
+      14.0,
+      2.0,
+      23.0
+    ]
+  },
+  "observable_semantics": "TQEC auto correlation surfaces for the full computation; not one observable per patch",
+  "tqec_commit": "60928c3297bb092baf7d66f7bbb264e6d94a17e9",
+  "stim_version": "1.16.0",
+  "sha256": {
+    "circuit.stim": "5db9474441f1c2c1a2cf1b082f10a6362dd021b11beaa3b7025c1ece59a6ea7d",
+    "decoder.dem": "9bbd4b9ae2ce31f8e7318b7e0bfe3fd5f812cef20d19436ef7075345d3ea74f8",
+    "measurements.b8": "14da47b102bf54334e4212d3c64e7834e4d10ef0de0f7f34db2eeb7185c908a6",
+    "detections.b8": "8a2c004a3d50b15955bbece12749731c548923cc0cfefc1fd300f9d29120fdef",
+    "observables.b8": "f8a0927d5596204a19f589e6376184b5cf61e5c6d2b4683f6019b2626ef060cf",
+    "block_graph.json": "dc5c0b8b49fe6dd3041c60ac6d19e477d6dc42db9ccb7ef521ceebad6ffed2f7"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "distance": 3,
+  "shots": 16,
+  "circuit_family": "TQEC sequential adjacent merge/split",
+  "files": {
+    "detections.b8": {
+      "format": "b8",
+      "bits_per_shot": 40,
+      "bytes_per_shot": 5
+    },
+    "observables.b8": {
+      "format": "b8",
+      "bits_per_shot": 1,
+      "bytes_per_shot": 1
+    }
+  }
+}

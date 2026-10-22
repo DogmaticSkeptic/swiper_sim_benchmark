@@ -1,0 +1,126 @@
+{
+  "configuration": {
+    "round_us": 1.0,
+    "decode_us": 14.0,
+    "latency_profile": "decoder-latency-kit/profiles/cpu-pymatching-d3.json",
+    "latency_statistic": "median",
+    "job_overhead_us": 0,
+    "decoders": 4,
+    "distance": 3,
+    "schedule": null,
+    "method": "aligned",
+    "t_gates": 10,
+    "seed": 0
+  },
+  "latency_model": {
+    "distance": 3,
+    "statistic": "median",
+    "round_us": 1.0,
+    "per_job_overhead_us": 0,
+    "model": "monotone_piecewise_linear",
+    "calibration_scope": "representative_surgery_volume_surrogate",
+    "measured_proxy_volume_range": [
+      3,
+      4606
+    ],
+    "provenance": {
+      "timings_sha256": "42e8f26712c3762488fcb351f3baf26ecfe49b404005d7a728cd82b722f96116",
+      "manifest_sha256": "5ae28306979776f71180927c63cc863f38f90cf63017570c63a9f703917a6a08",
+      "environment": {
+        "platform": "Linux-6.14.0-37-generic-aarch64-with-glibc2.41",
+        "python": "3.10.18",
+        "stim": "1.16.0",
+        "numpy": "1.26.4",
+        "backend": "pymatching",
+        "timer": "perf_counter_ns",
+        "timing_scope": "synchronous decoder API call; excludes input loading, graph build, unpacking, and QPU transport",
+        "shots_requested": 1000,
+        "repeats": 1,
+        "warmup_shots": 32,
+        "cases": 114,
+        "dataset": "decoder-benchmark-data/d3-coupled-surgery",
+        "complete": true,
+        "scope": "One independent full experiment per decode; representative surgery dataset, not exact SWIPER interior windows",
+        "pymatching": "2.4.0"
+      }
+    }
+  },
+  "modeled_decode_latency_rounds": null,
+  "observed_volume_latencies": [
+    {
+      "patch_rounds": 1,
+      "decoder_rounds": 4
+    },
+    {
+      "patch_rounds": 3,
+      "decoder_rounds": 4
+    },
+    {
+      "patch_rounds": 5,
+      "decoder_rounds": 4
+    },
+    {
+      "patch_rounds": 6,
+      "decoder_rounds": 4
+    },
+    {
+      "patch_rounds": 7,
+      "decoder_rounds": 4
+    },
+    {
+      "patch_rounds": 8,
+      "decoder_rounds": 5
+    },
+    {
+      "patch_rounds": 9,
+      "decoder_rounds": 5
+    },
+    {
+      "patch_rounds": 10,
+      "decoder_rounds": 5
+    },
+    {
+      "patch_rounds": 12,
+      "decoder_rounds": 5
+    },
+    {
+      "patch_rounds": 13,
+      "decoder_rounds": 5
+    },
+    {
+      "patch_rounds": 15,
+      "decoder_rounds": 5
+    }
+  ],
+  "notes": [
+    "Timing simulation only; no logical error rate or operation fidelity is computed.",
+    "Unwanted idle patch-rounds sum over patches, not elapsed wall-clock rounds.",
+    "Speculation accuracy is an input probability, not decoder fidelity."
+  ],
+  "results": [
+    {
+      "speculation": false,
+      "device_rounds": 190,
+      "device_time_us": 190.0,
+      "decode_completion_round": 199,
+      "decode_completion_time_us": 199.0,
+      "unwanted_idle_patch_rounds": 145,
+      "mean_conditioned_wait_rounds": 11.5,
+      "peak_active_decoders": 3,
+      "completed_windows": 64,
+      "failed_speculations": 0
+    },
+    {
+      "speculation": true,
+      "device_rounds": 171,
+      "device_time_us": 171.0,
+      "decode_completion_round": 181,
+      "decode_completion_time_us": 181.0,
+      "unwanted_idle_patch_rounds": 124,
+      "mean_conditioned_wait_rounds": 9.6,
+      "peak_active_decoders": 4,
+      "completed_windows": 62,
+      "failed_speculations": 5
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.b8 binary
+*.csv -text
+*.png binary
+*.tar.gz binary

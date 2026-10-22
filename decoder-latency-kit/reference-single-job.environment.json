@@ -1,0 +1,17 @@
+{
+  "platform": "Linux-6.14.0-37-generic-aarch64-with-glibc2.41",
+  "python": "3.10.18",
+  "stim": "1.16.0",
+  "numpy": "1.26.4",
+  "backend": "pymatching",
+  "timer": "perf_counter_ns",
+  "timing_scope": "synchronous decoder API call; excludes input loading, graph build, unpacking, and QPU transport",
+  "shots_requested": 1000,
+  "repeats": 1,
+  "warmup_shots": 32,
+  "cases": 114,
+  "dataset": "decoder-benchmark-data/d3-coupled-surgery",
+  "complete": true,
+  "scope": "One independent full experiment per decode; representative surgery dataset, not exact SWIPER interior windows",
+  "pymatching": "2.4.0"
+}

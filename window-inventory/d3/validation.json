@@ -1,0 +1,84 @@
+{
+  "upstream_commit": "1c00e097cb7f6d6e82bd88dfb30659f8163e0e33",
+  "comparison_tests_passed": 12,
+  "benchmarks": [
+    "msd_15to1",
+    "toffoli",
+    "rz_1e-05",
+    "adder_n18"
+  ],
+  "policies": [
+    "sliding",
+    "parallel",
+    "aligned"
+  ],
+  "compared": [
+    "dependency graph nodes and predecessor/successor ordering",
+    "quantum device rounds",
+    "decoder completion rounds",
+    "full window-size histograms",
+    "full window-region shape histograms"
+  ],
+  "memory_stress_check": {
+    "schedule": "10000 memory rounds",
+    "distance": 3,
+    "policy": "parallel",
+    "completed_windows": 1668,
+    "retired_verified_windows": 1662,
+    "remaining_live_graph_nodes": 6
+  },
+  "inventory_validation": {
+    "validated_runs": 132,
+    "expected_runs": 132,
+    "schedule_files": 44,
+    "unique_source_traces": 43,
+    "constructed_windows": 8919738,
+    "spatial_masks": 19,
+    "spatial_bounding_boxes": [
+      [
+        3,
+        3
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        3,
+        9
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        6,
+        9
+      ],
+      [
+        9,
+        3
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        9,
+        9
+      ],
+      [
+        9,
+        12
+      ]
+    ],
+    "core_masks": 8,
+    "source_hashes_and_instruction_counts_match": true,
+    "per_run_and_export_histograms_match": true,
+    "missing_runs": []
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "software_tests_passed": 17,
+  "upstream_tests_passed": 17,
+  "real_swiper_integration": {
+    "policies": [
+      "sliding",
+      "parallel",
+      "aligned"
+    ],
+    "speculation_modes": [
+      null,
+      "integrated"
+    ]
+  },
+  "profile_cases": 114,
+  "independent_shots_benchmarked": 114000,
+  "custom_decoder_factory_CLI_verified": true,
+  "portable_profile_refit_reproduces_reference": true,
+  "callback_loads_without_third_party_dependencies": true,
+  "callback_input": "patch-rounds (sum of commit and buffer durations)",
+  "callback_output": "positive integer QEC rounds (ceil of predicted us / QEC-round us)",
+  "reference_profile_hardware": "PyMatching on current ARM CPU",
+  "reference_profile_scope": "Approximate representative-surgery volume surrogate",
+  "exact_swiper_interior_window_calibration": false,
+  "target_GPU_FPGA_measurements_available": false
+}

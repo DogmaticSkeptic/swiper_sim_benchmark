@@ -1,0 +1,6 @@
+# Run bootstrap_sources.py first. Tested with Python 3.10; supports 3.10-3.12.
+-r requirements-sim.txt
+numpy==1.26.4
+stim==1.16.0
+pymatching==2.4.0
+./tqec-source

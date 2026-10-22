@@ -1,0 +1,2 @@
+-r requirements-decode.txt
+tqec @ git+https://github.com/tqec/tqec.git@60928c3297bb092baf7d66f7bbb264e6d94a17e9

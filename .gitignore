@@ -1,0 +1,65 @@
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Pinned external checkouts; recreate with bootstrap_sources.py
+/swiper-sim/
+/tqec-source/
+
+# Generated samples, experiment outputs, archives, and machine-local snapshot
+/decoder-benchmark-data/*
+!/decoder-benchmark-data/d3-coupled-surgery/
+/syndrome-data/
+/installed-requirements.txt
+*.tar.gz
+*.tar.gz.sha256
+*.zip
+*.log
+/results/
+
+# Keep compact, reviewed inventory summaries; omit detailed traces and probes
+/window-inventory/*
+!/window-inventory/d3/
+/window-inventory/d3/*
+!/window-inventory/d3/README.md
+!/window-inventory/d3/all_callback_volumes.json
+!/window-inventory/d3/all_window_sizes.csv
+!/window-inventory/d3/base_bounding_boxes.csv
+!/window-inventory/d3/base_shapes.json
+!/window-inventory/d3/base_shapes.png
+!/window-inventory/d3/base_shapes.svg
+!/window-inventory/d3/base_sizes.csv
+!/window-inventory/d3/base_sizes_by_benchmark.csv
+!/window-inventory/d3/benchmark_summary.csv
+!/window-inventory/d3/commit_base_shapes.json
+!/window-inventory/d3/commit_base_sizes.csv
+!/window-inventory/d3/configuration.json
+!/window-inventory/d3/coverage.json
+!/window-inventory/d3/failures.json
+!/window-inventory/d3/validation.json
+
+# The kit's reviewed reference profile is retained; local hardware profiles aren't
+/decoder-latency-kit/profiles/*
+!/decoder-latency-kit/profiles/cpu-pymatching-d3.json
+/decoder-latency-kit/results/
+/decoder-latency-kit/*.csv
+!/decoder-latency-kit/reference-single-job.csv
+!/decoder-latency-kit/source-manifest.csv
+!/decoder-latency-kit/reference-volume-predictions.csv
+/decoder-latency-kit/*.environment.json
+!/decoder-latency-kit/reference-single-job.environment.json
+
+# Local settings and credentials
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/

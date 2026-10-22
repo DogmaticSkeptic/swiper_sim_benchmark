@@ -1,0 +1,42 @@
+{
+  "configuration": {
+    "round_us": 1.0,
+    "decode_us": 14.0,
+    "decoders": 4,
+    "distance": 7,
+    "t_gates": 10,
+    "seed": 0
+  },
+  "modeled_decode_latency_rounds": 14,
+  "notes": [
+    "Timing simulation only; no logical error rate or operation fidelity is computed.",
+    "Unwanted idle patch-rounds sum over patches, not elapsed wall-clock rounds.",
+    "Speculation accuracy is an input probability, not decoder fidelity."
+  ],
+  "results": [
+    {
+      "speculation": false,
+      "device_rounds": 483,
+      "device_time_us": 483.0,
+      "decode_completion_round": 511,
+      "decode_completion_time_us": 511.0,
+      "unwanted_idle_patch_rounds": 406,
+      "mean_conditioned_wait_rounds": 32.2,
+      "peak_active_decoders": 4,
+      "completed_windows": 68,
+      "failed_speculations": 0
+    },
+    {
+      "speculation": true,
+      "device_rounds": 388,
+      "device_time_us": 388.0,
+      "decode_completion_round": 411,
+      "decode_completion_time_us": 411.0,
+      "unwanted_idle_patch_rounds": 291,
+      "mean_conditioned_wait_rounds": 22.7,
+      "peak_active_decoders": 4,
+      "completed_windows": 62,
+      "failed_speculations": 4
+    }
+  ]
+}
