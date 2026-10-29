@@ -268,7 +268,12 @@ srun --jobid=ALLOCATION -N4 -n4 --ntasks-per-node=1 -c128 --hint=nomultithread \
 .venv/bin/python plot_concurrency.py results/concurrency
 ```
 
-The distributed runner verifies source hashes and saves node, allocation,
+The distributed runner uses a 320 GiB estimated memory budget per node. Its
+per-algorithm estimate is twice the observed peak RSS plus allocator headroom,
+with a file-size proxy before measurements exist. Increase `--workers` to use
+more CPU cores while the memory budget limits overlapping large cases. The
+queue wait is outside each cell's timeout. The runner verifies source hashes
+and saves node, allocation,
 Python, and installed-package metadata under `execution/`. Do not run multiple
 controllers for the same rank at once. Validation uses the standard project and
 upstream pytest commands above. `test_concurrency.py` compares against the
