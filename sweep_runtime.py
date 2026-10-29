@@ -13,6 +13,19 @@ from inventory_windows import (InventoryDeviceManager, InventorySchedule,
                                filtered_shares_boundary)
 
 
+class SweepDeviceManager(InventoryDeviceManager):
+    def _postprocess_idle_data(self, syndrome_data):
+        # Upstream performs only membership tests on this collection during
+        # formatting. A set preserves the result and avoids scanning all S gates
+        # for every syndrome object. Restore the original appendable history.
+        locations = self._conditional_S_locations
+        try:
+            self._conditional_S_locations = set(locations)
+            return super()._postprocess_idle_data(syndrome_data)
+        finally:
+            self._conditional_S_locations = locations
+
+
 class SweepDecoderManager(DecoderManager):
     def _topologically_sort(self, task_indices):
         if self.speculation_mode is None:
@@ -28,7 +41,7 @@ class SweepSimulator(DecodingSimulator):
         original = simulator_module.DeviceManager
         original_decoder = simulator_module.DecoderManager
         try:
-            simulator_module.DeviceManager = InventoryDeviceManager
+            simulator_module.DeviceManager = SweepDeviceManager
             simulator_module.DecoderManager = SweepDecoderManager
             super().initialize_experiment(**kwargs)
         finally:
