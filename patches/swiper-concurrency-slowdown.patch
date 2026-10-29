@@ -1,0 +1,238 @@
+diff --git a/swiper/decoder_manager.py b/swiper/decoder_manager.py
+index 993b409..65ea212 100644
+--- a/swiper/decoder_manager.py
++++ b/swiper/decoder_manager.py
+@@ -3,6 +3,7 @@ from typing import Callable
+ import numpy as np
+ import networkx as nx
+ import itertools
++import math
+ from swiper.window_builder import DecodingWindow
+ 
+ @dataclass
+@@ -26,6 +27,10 @@ class DecoderData:
+     wasted_decode_volume: int # cycles * decoder
+     num_successful_speculations: int
+ 
++    # Occupancy sampled before any progress or completion in step().
++    concurrency_rounds: dict[int, int] = field(default_factory=dict)
++    parallel_slowdown_alpha: float = 0.0
++
+     def to_dict(self):
+         return asdict(self)
+ 
+@@ -46,7 +51,7 @@ class DecoderManager:
+     def __init__(
+             self,
+             instruction_idx_dag: nx.DiGraph,
+-            decoding_time_function: Callable[[int], int],
++            decoding_time_function: Callable[[int], float],
+             speculation_time: int,
+             speculation_accuracy: float,
+             max_parallel_processes: int | None = None,
+@@ -55,6 +60,7 @@ class DecoderManager:
+             missed_speculation_modifier: float = 1.4,
+             lightweight_setting: int = 0,
+             rng: int | np.random.Generator = np.random.default_rng(),
++            parallel_slowdown_alpha: float = 0.0,
+         ) -> None:
+         """Initialize the decoder manager.
+         
+@@ -84,8 +90,19 @@ class DecoderManager:
+                 regardless of whether they directly depended on the speculation.
+             missed_speculation_modifier: Factor by which incorrect speculation
+                 rate increases when an adjacent face has a missed speculation.
++            parallel_slowdown_alpha: Nonnegative shared-accelerator contention.
++                Each active decode receives 1/(1+alpha*(k-1)) isolated rounds of
++                work per QEC round, using the actual pre-step decode count k.
++                Nonzero alpha currently requires speculation to be disabled.
++                Communication is external to this compute-work callback.
+             rng: Random number generator, or integer seed.
+         """
++        if not math.isfinite(parallel_slowdown_alpha) or parallel_slowdown_alpha < 0:
++            raise ValueError('parallel_slowdown_alpha must be finite and nonnegative')
++        if parallel_slowdown_alpha and speculation_mode is not None:
++            raise ValueError('Contention currently requires speculation_mode=None; predictor resource sharing is unspecified')
++        self.parallel_slowdown_alpha = parallel_slowdown_alpha
++        self._concurrency_rounds: dict[int, int] = {}
+         self.instruction_idx_dag = instruction_idx_dag
+         self.decoding_time_function = decoding_time_function
+         self.speculation_time = speculation_time
+@@ -115,7 +132,7 @@ class DecoderManager:
+         self._current_round = 0
+         self._missed_speculation_events: list[tuple[int, list[int]]] = []
+         self._active_speculation_progress: dict[int, int] = {} # maps each speculated window to rounds remaining to complete speculation
+-        self._active_window_progress: dict[int, int] = {} # maps each active window to rounds remaining to complete decoding
++        self._active_window_progress: dict[int, float] = {} # maps each active window to rounds remaining to complete decoding
+         self._pending_decode_tasks: set[int] = set()
+         self._pending_speculate_tasks: set[int] = set()
+         self._tasks_by_idx: list[DecoderTask | None] = []
+@@ -135,13 +152,17 @@ class DecoderManager:
+         """Step decoding and speculation forward by one round (without creating
+         any new processes)."""
+         # Step decoders forward; check if any windows have completed
+-        for task_idx in self._active_window_progress:
+-            self._active_window_progress[task_idx] -= 1
++        k = len(self._active_window_progress)
++        self._concurrency_rounds[k] = self._concurrency_rounds.get(k, 0) + 1
++        if k:
++            progress = 1 / (1 + self.parallel_slowdown_alpha * (k - 1))
++            for task_idx in self._active_window_progress:
++                self._active_window_progress[task_idx] -= progress
+         completed_windows = []
+         poisoned_speculations = []
+ 
+         for task_idx, time_remaining in self._active_window_progress.items():
+-            if time_remaining <= 0:
++            if time_remaining <= 1e-10:
+                 completed_windows.append(task_idx)
+ 
+         self._num_completed_windows += len(completed_windows)
+@@ -419,7 +440,11 @@ class DecoderManager:
+                 assert not self._completed_decoding(task_idx) and task_idx not in self._active_window_progress
+                 self._pending_decode_tasks.remove(task_idx)
+                 task.decoding_start_time = self._current_round
+-                self._active_window_progress[task_idx] = self.decoding_time_function(task.window.total_spacetime_volume())
++                # Sample exactly once per attempt, including after a reset.
++                work = self.decoding_time_function(task.window.total_spacetime_volume())
++                if isinstance(work, bool) or not math.isfinite(work) or work <= 0:
++                    raise ValueError('Isolated decoding work must be finite and positive')
++                self._active_window_progress[task_idx] = work
+                 task.used_parent_speculations = {}
+                 for parent_idx in parents:
+                     parent = self._get_task(parent_idx)
+@@ -477,6 +502,8 @@ class DecoderManager:
+         if self.lightweight_setting == 0:
+             return DecoderData(
+                 num_rounds=self._current_round,
++                concurrency_rounds=dict(self._concurrency_rounds),
++                parallel_slowdown_alpha=self.parallel_slowdown_alpha,
+                 max_parallel_decoders=self._max_decoding_processes_used,
+                 max_parallel_speculators=self._max_speculation_processes_used,
+                 max_parallel_combined_processes=self._max_combined_processes_used,
+@@ -498,6 +525,8 @@ class DecoderManager:
+         elif self.lightweight_setting == 1:
+             return DecoderData(
+                 num_rounds=self._current_round,
++                concurrency_rounds=dict(self._concurrency_rounds),
++                parallel_slowdown_alpha=self.parallel_slowdown_alpha,
+                 max_parallel_decoders=self._max_decoding_processes_used,
+                 max_parallel_speculators=self._max_speculation_processes_used,
+                 max_parallel_combined_processes=self._max_combined_processes_used,
+@@ -519,6 +548,8 @@ class DecoderManager:
+         elif self.lightweight_setting == 2 or self.lightweight_setting == 3:
+             return DecoderData(
+                 num_rounds=self._current_round,
++                concurrency_rounds=dict(self._concurrency_rounds),
++                parallel_slowdown_alpha=self.parallel_slowdown_alpha,
+                 max_parallel_decoders=self._max_decoding_processes_used,
+                 max_parallel_speculators=self._max_speculation_processes_used,
+                 max_parallel_combined_processes=self._max_combined_processes_used,
+diff --git a/swiper/device_manager.py b/swiper/device_manager.py
+index 11fe58d..4a13d53 100644
+--- a/swiper/device_manager.py
++++ b/swiper/device_manager.py
+@@ -294,7 +294,7 @@ class DeviceManager:
+                             self._completed_instructions.append(instruction_idx)
+                         if instruction_task.instruction.name == 'DISCARD':
+                             self._active_patches -= set(instruction_task.instruction.patches)
+-                        elif instruction_task.instruction.name == 'MERGE' and instruction_task.instruction.group_name == 'CONDITIONAL_S' and self.lightweight_setting == 0:
++                        elif instruction_task.instruction.name == 'MERGE' and instruction_task.instruction.group_name == 'CONDITIONAL_S' and instruction_task.instruction.conditioned_on_idx and self.lightweight_setting == 0:
+                             assert len(instruction_task.instruction.conditioned_on_idx) > 0
+                             idle_instr = self.schedule_instructions[instruction_task.instruction_idx+2]
+                             assert idle_instr.instruction.name == 'IDLE'
+@@ -332,7 +332,7 @@ class DeviceManager:
+                     self.schedule_instructions[instruction_idx].start_round = self.current_round
+                     self._active_instructions[instruction_idx] = self._instruction_durations[instruction_idx]
+                     patches_in_use.update(instruction_task.instruction.patches)
+-                    if instruction_task.instruction.name == 'MERGE' and instruction_task.instruction.group_name == 'CONDITIONAL_S' and self.lightweight_setting == 0:
++                    if instruction_task.instruction.name == 'MERGE' and instruction_task.instruction.group_name == 'CONDITIONAL_S' and instruction_task.instruction.conditioned_on_idx and self.lightweight_setting == 0:
+                         assert len(instruction_task.instruction.conditioned_on_idx) > 0
+                         idle_instr = self.schedule_instructions[instruction_task.instruction_idx+2]
+                         assert idle_instr.instruction.name == 'IDLE'
+diff --git a/swiper/simulator.py b/swiper/simulator.py
+index 9ba6b6d..43ed22b 100644
+--- a/swiper/simulator.py
++++ b/swiper/simulator.py
+@@ -31,6 +31,7 @@ class SimulatorParams:
+     device_rounds_cutoff: int | None = None
+     clock_timeout_seconds: int | None = None
+     processor_prediction_results: dict[str, Any] | None = None
++    parallel_slowdown_alpha: float = 0.0
+ 
+     def to_dict(self):
+         return asdict(self)
+@@ -48,7 +49,7 @@ class DecodingSimulator:
+             schedule: LatticeSurgerySchedule,
+             distance: int,
+             scheduling_method: str,
+-            decoding_latency_fn: Callable[[int], int],
++            decoding_latency_fn: Callable[[int], float],
+             speculation_mode: str | None = None,
+             speculation_latency: int = 1,
+             speculation_accuracy: float = 0,
+@@ -63,6 +64,7 @@ class DecodingSimulator:
+             save_animation_frames: bool = False,
+             lightweight_setting: int = 0,
+             rng: int | np.random.Generator = np.random.default_rng(),
++            parallel_slowdown_alpha: float = 0.0,
+         ) -> tuple[bool, SimulatorParams, DeviceData, WindowData, DecoderData]:
+         """TODO
+         
+@@ -89,6 +91,7 @@ class DecodingSimulator:
+                 'predict', first run an ideal simulation (perfect speculation)
+                 of the schedule to estimate the maximum number of parallel
+                 tasks.
++            parallel_slowdown_alpha: Shared decode slowdown coefficient. See DecoderManager.
+             progress_bar: If True, display a progress bar for the simulation.
+             pending_window_count_cutoff: If the number of pending windows
+                 exceeds this value, the simulation is considered to have failed
+@@ -134,6 +137,7 @@ class DecodingSimulator:
+                 poison_policy=poison_policy,
+                 missed_speculation_modifier=missed_speculation_modifier,
+                 max_parallel_processes=None,
++                parallel_slowdown_alpha=parallel_slowdown_alpha,
+                 clock_timeout=(clock_timeout/2 if clock_timeout is not None else None),
+                 lightweight_setting=2,
+                 rng=rng,
+@@ -180,6 +184,7 @@ class DecodingSimulator:
+             poison_policy=poison_policy,
+             missed_speculation_modifier=missed_speculation_modifier,
+             max_parallel_processes=max_parallel_processes,
++            parallel_slowdown_alpha=parallel_slowdown_alpha,
+             lightweight_setting=lightweight_setting,
+             rng=rng,
+             pending_window_count_cutoff=pending_window_count_cutoff,
+@@ -229,7 +234,7 @@ class DecodingSimulator:
+             schedule: LatticeSurgerySchedule,
+             distance: int,
+             scheduling_method: str,
+-            decoding_latency_fn: Callable[[int], int],
++            decoding_latency_fn: Callable[[int], float],
+             speculation_mode: str | None,
+             speculation_latency: int,
+             speculation_accuracy: float,
+@@ -238,6 +243,7 @@ class DecodingSimulator:
+             max_parallel_processes: int | None = None,
+             lightweight_setting: int = 0,
+             rng: int | np.random.Generator = np.random.default_rng(),
++            parallel_slowdown_alpha: float = 0.0,
+             **simulation_params,
+         ) -> None:
+         try:
+@@ -255,6 +261,7 @@ class DecodingSimulator:
+             poison_policy=poison_policy,
+             missed_speculation_modifier=missed_speculation_modifier,
+             max_parallel_processes=max_parallel_processes,
++            parallel_slowdown_alpha=parallel_slowdown_alpha,
+             lightweight_setting=lightweight_setting,
+             rng=(rng if isinstance(rng, int) else None),
+             **simulation_params,
+@@ -277,6 +284,7 @@ class DecodingSimulator:
+             speculation_time=speculation_latency,
+             speculation_accuracy=speculation_accuracy,
+             max_parallel_processes=max_parallel_processes,
++            parallel_slowdown_alpha=parallel_slowdown_alpha,
+             speculation_mode=speculation_mode,
+             poison_policy=poison_policy,
+             missed_speculation_modifier=missed_speculation_modifier,

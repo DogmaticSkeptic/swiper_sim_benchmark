@@ -151,3 +151,123 @@ repository or remote is created by the setup scripts.
 fidelity, timing, and inventory discussion. Paths in those archived notes are
 relative to the workspace root. SWIPER models scheduling and stalls; it does not
 compute operation fidelity or execute physical correction feedback.
+
+## Shared-accelerator contention and heatmaps
+
+The tracked patch in `patches/swiper-concurrency-slowdown.patch` extends the
+pinned SWIPER simulator with `parallel_slowdown_alpha=0.0`. Bootstrap applies it
+once, recognizes the exact patched tree on subsequent runs, and refuses partial
+patches or unrelated local edits. The patch also corrects detailed trace
+recording for unconditional S blocks whose cached group label is
+`CONDITIONAL_S`; it leaves their instructions and dependencies intact.
+
+Each decoding attempt samples its isolated work once. At the start of every
+QEC round, the decoder manager counts the actual active decodes, k, and advances
+all of them by `1 / (1 + alpha * (k - 1))` isolated work rounds. Work remains
+fractional until completion at a QEC-round boundary. Jobs already running change
+speed as occupancy changes. Capacity M limits concurrent requests sharing one
+accelerator; it does not represent M independent accelerators. The manager
+exports `DecoderData.concurrency_rounds`, a histogram sampled before progress
+and completions, including rounds with k = 0. Existing upstream occupancy fields
+sample after completions and are retained for compatibility.
+
+```python
+latency = load_latency_fn(
+    "decoder-latency-kit/profiles/cpu-pymatching-d3.json",
+    distance=3, round_us=1.0,
+)
+speed = 2.0
+
+def isolated_work(volume):
+    return latency.model.latency_us(volume) / (speed * latency.model.round_us)
+
+# DecodingSimulator().run(...,
+#     decoding_latency_fn=isolated_work,
+#     parallel_slowdown_alpha=0.05,
+#     max_parallel_processes=8, speculation_mode=None)
+```
+
+Alpha must be finite and nonnegative; work and speed must be finite and
+positive. Alpha zero preserves the original integer-callback behavior,
+including speculation. Nonzero alpha currently requires speculation to be off:
+sharing predictor computation needs an explicit resource model. The sweep uses
+zero communication overhead. A fixed transport delay must be modeled separately
+from accelerator compute work. This model has no batch formation, padding, or
+synchronized batch cohorts.
+
+Run both heatmaps for **all 44 cached schedule files and the ten-T-gate demo**,
+under the aligned, parallel, and sliding policies:
+
+```bash
+PYTHONHASHSEED=0 .venv/bin/python sweep_concurrency.py \
+  --out results/concurrency --workers 32 --round-us 1 --seed 0
+.venv/bin/python plot_concurrency.py results/concurrency
+```
+
+The default experiment uses distance 3, speculation off, CPU PyMatching median
+reference timing, and a configurable QPU round duration (1 µs here). Speed uses
+unrounded microseconds from `model.latency_us`, divided by speed and round time.
+Heatmap 1 scans M = 1, 2, 4, 8, 16, 32 and s = 0.25, 0.5, 1, 2, 4, 8 at alpha
+zero. Heatmap 2 scans the same M and alpha = 0, 0.01, 0.025, 0.05, 0.1, 0.2, 0.5
+at s = 1. The shared alpha-zero/speed-one cells are simulated once and appear in
+both plots. One baseline per algorithm and policy uses unlimited decoder slots,
+alpha zero, and one-round latency. There are 9,855 unique simulations, including
+135 baselines.
+
+`--algorithms t_gate_demo toffoli` runs the initial small examples;
+`--policies aligned` selects a window policy. Use a separate output directory
+for a different configuration. Repeating the same command resumes saved cells.
+Every simulation starts in a fresh process with both `PYTHONHASHSEED` and the
+simulator RNG seed fixed. The sweep reuses the inventory's tested incremental
+DAG construction, conservative future-start prediction bounds, and spatial
+boundary filter through `sweep_runtime.py`. It runs with `lightweight_setting=0`
+and retains the generated syndrome trace for counting unwanted idle patch-rounds.
+
+The raw idle count is the sum of `is_unwanted_idle` over every generated syndrome
+round object. Both plots subtract the same policy-specific baseline and label
+the result **additional idle patch-rounds relative to the one-round baseline**.
+This counts patches, not elapsed QEC rounds. Signed differences are retained.
+The profile measures complete representative surgery circuits on a CPU; these
+plots are a scheduling surrogate, not calibrated GPU/FPGA performance or exact
+interior-window decoding.
+
+Default cutoffs are 900 seconds of simulation wall time, 5,000,000 device
+rounds, 10,000 pending windows, and 10 GiB of virtual memory per cell. A parent
+watchdog allows another 60 seconds for process startup and result collection.
+Cutoffs are frozen in `configuration.json` and recorded in the CSV. Slow cells
+can develop growing decoding backlogs as idle rounds create further work.
+Cutoff or failed cells are missing values, never zero-idle results. A failed
+baseline makes that entire algorithm/policy comparison unavailable.
+
+The output directory contains atomic per-cell JSON, `sweep.csv`, the frozen
+configuration, `summary.json`, and an acceptance report checking the common
+rows and the M = 1 invariance. CSV records include raw/baseline/additional idle
+counts, device and decoding completion rounds, concurrency diagnostics, seeds,
+cutoffs, schedule/profile hashes, pinned simulator commit, and patch/driver
+hashes. `figures/` contains one heatmap pair per algorithm and policy as PNG,
+editable SVG, and PDF, plus `all_benchmarks.pdf` and a comparison atlas. Pairs
+share their color scale; the atlas uses one scale across all algorithms and
+policies. Zero remains visible under symmetric-log normalization. Figure
+captions and an index are written to the output README. Results remain ignored
+by Git, and the committed Stim dataset is not regenerated.
+
+For a multi-node Slurm run, initialize the frozen output directory first, then use one task per node. Each rank owns disjoint cell IDs:
+
+```bash
+.venv/bin/python sweep_concurrency.py --out results/concurrency --initialize-only
+srun --jobid=ALLOCATION -N4 -n4 --ntasks-per-node=1 -c48 \
+  .venv/bin/python distributed_sweep.py \
+  --out results/concurrency --shards 4 --workers 48
+.venv/bin/python sweep_concurrency.py --out results/concurrency --aggregate
+.venv/bin/python plot_concurrency.py results/concurrency
+```
+
+The distributed runner verifies source hashes and saves node, allocation,
+Python, and installed-package metadata under `execution/`. Do not run multiple
+controllers for the same rank at once. Validation uses the standard project and
+upstream pytest commands above. `test_concurrency.py` compares against the
+original pinned decoder manager as well as testing fractional progress, changing
+load, saturation, resets, invalid inputs, and full-trace scheduling equivalence.
+The upstream package's Python metadata specifies `<=3.12`, which excludes patch
+versions of Python 3.12 despite the source running with them. This run used
+Python 3.12.12 with `pip install --no-deps --ignore-requires-python -e ./swiper-sim`.

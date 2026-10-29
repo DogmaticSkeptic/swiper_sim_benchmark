@@ -2,7 +2,15 @@
   "swiper-sim": {
     "url": "https://github.com/jviszlai/swiper.git",
     "commit": "1c00e097cb7f6d6e82bd88dfb30659f8163e0e33",
-    "sparse_paths": ["swiper", "tests", "doc", "benchmarks/cached_schedules"]
+    "sparse_paths": [
+      "swiper",
+      "tests",
+      "doc",
+      "benchmarks/cached_schedules"
+    ],
+    "patches": [
+      "patches/swiper-concurrency-slowdown.patch"
+    ]
   },
   "tqec-source": {
     "url": "https://github.com/tqec/tqec.git",
