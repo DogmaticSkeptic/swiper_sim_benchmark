@@ -193,3 +193,27 @@ def test_sweep_optimization_preserves_saturated_trace(policy):
             rng=0,device_rounds_cutoff=1000)
         results.append((outcome[0],outcome[2].to_dict(),outcome[4].to_dict()))
     assert results[0]==results[1]
+
+
+def test_merged_windows_do_not_count_as_pending_backlog():
+    from sweep_runtime import SweepSimulator
+    sim=SweepSimulator()
+    success, _, _, _, _=sim.run(
+        schedule=RegularTSchedule(30,idle_between_Ts=0).schedule,
+        distance=3,scheduling_method='aligned',decoding_latency_fn=lambda v:1,
+        max_parallel_processes=None,rng=0,pending_window_count_cutoff=10)
+    assert success and sim.peak_pending_windows<=10
+    ghosts=len(sim._window_manager.all_windows)-sim._decoding_manager._num_completed_windows
+    assert ghosts>10
+    assert sim.pending_window_count()==0
+
+
+def test_true_pending_backlog_still_reaches_cutoff():
+    from sweep_runtime import SweepSimulator
+    sim=SweepSimulator()
+    success, _, _, _, _=sim.run(
+        schedule=RegularTSchedule(30,idle_between_Ts=0).schedule,
+        distance=3,scheduling_method='aligned',decoding_latency_fn=lambda v:100,
+        max_parallel_processes=1,rng=0,pending_window_count_cutoff=10)
+    assert not success and sim.pending_window_count()>10
+    assert sim.peak_pending_windows>10

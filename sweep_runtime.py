@@ -44,7 +44,19 @@ class SweepSimulator(DecodingSimulator):
                 DecodingWindow.shares_boundary = original_boundary
         self._window_manager.process_round = filtered_round
 
-    def step_experiment(self, *args, **kwargs):
-        super().step_experiment(*args, **kwargs)
-        pending = len(self._window_manager.all_windows) - self._decoding_manager._num_completed_windows
+    def pending_window_count(self):
+        # all_windows retains None entries for merged-away windows. The live
+        # graph excludes those entries but retains completed windows, so this
+        # difference counts actual unfinished (including unconstructed) windows.
+        return self._window_manager.window_dag.number_of_nodes() - self._decoding_manager._num_completed_windows
+
+    def step_experiment(self, pending_window_count_cutoff=0, device_rounds_cutoff=0, print_interval=None):
+        pending = self.pending_window_count()
         self.peak_pending_windows = max(getattr(self, 'peak_pending_windows', 0), pending)
+        if pending_window_count_cutoff > 0 and pending > pending_window_count_cutoff:
+            self.failed = True
+            return
+        super().step_experiment(pending_window_count_cutoff=0,
+                               device_rounds_cutoff=device_rounds_cutoff,
+                               print_interval=print_interval)
+        self.peak_pending_windows = max(self.peak_pending_windows, self.pending_window_count())

@@ -34,8 +34,9 @@ def main():
                   packages=subprocess.check_output([sys.executable,'-m','pip','freeze'],text=True).splitlines())
     atomic_json(out/'execution'/f'{socket.gethostname()}__{args.rank}.json',metadata)
     selected=[t for t in tasks(config) if int(task_id(t),16)%args.shards==args.rank]
-    selected.sort(key=lambda t:(Path(t['schedule']).stat().st_size if t['schedule'] else 0,
-                               t['algorithm'],t['policy'],not t['baseline']))
+    selected.sort(key=lambda t:(not t['baseline'],
+                               Path(t['schedule']).stat().st_size if t['schedule'] else 0,
+                               t['algorithm'],t['policy']))
     print(f'Rank {args.rank}: {len(selected)} cells, {args.workers} workers',flush=True)
     start=time.monotonic()
     with ThreadPoolExecutor(max_workers=args.workers) as pool:

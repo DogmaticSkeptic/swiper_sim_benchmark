@@ -235,7 +235,10 @@ interior-window decoding.
 Default cutoffs are 900 seconds of simulation wall time, 5,000,000 device
 rounds, 10,000 pending windows, and 10 GiB of virtual memory per cell. A parent
 watchdog allows another 60 seconds for process startup and result collection.
-Cutoffs are frozen in `configuration.json` and recorded in the CSV. Slow cells
+Cutoffs are frozen in `configuration.json` and recorded in the CSV. The sweep
+counts live unfinished windows from the window DAG for its backlog cutoff.
+Upstream counts the length of a list that retains merged-away windows, which
+can otherwise stop even an unlimited-slot baseline prematurely. Slow cells
 can develop growing decoding backlogs as idle rounds create further work.
 Cutoff or failed cells are missing values, never zero-idle results. A failed
 baseline makes that entire algorithm/policy comparison unavailable.

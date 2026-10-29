@@ -122,7 +122,7 @@ def simulate(config, task):
         if not success:
             if sim._device_manager.current_round > config['round_cutoff']:
                 status = 'round_cutoff'
-            elif len(sim._window_manager.all_windows)-sim._decoding_manager._num_completed_windows > config['backlog_cutoff']:
+            elif sim.pending_window_count() > config['backlog_cutoff']:
                 status = 'backlog_cutoff'
             else:
                 status = 'time_cutoff'
@@ -249,8 +249,8 @@ def main():
         print(f'Initialized {out}',flush=True); return
     all_tasks=tasks(config)
     # Prioritize baseline and small algorithms, without changing any cell settings.
-    all_tasks.sort(key=lambda t:(Path(t['schedule']).stat().st_size if t['schedule'] else 0,
-        t['algorithm'], t['policy'], 0 if t['baseline'] else 1))
+    all_tasks.sort(key=lambda t:(0 if t['baseline'] else 1,
+        Path(t['schedule']).stat().st_size if t['schedule'] else 0, t['algorithm'], t['policy']))
     print(f'Starting {len(all_tasks)} cells with {args.workers} workers',flush=True)
     started=time.monotonic()
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
