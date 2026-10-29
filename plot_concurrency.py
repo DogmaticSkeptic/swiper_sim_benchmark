@@ -96,7 +96,9 @@ def pair(rows,algorithm,policy,config):
     bar=fig.colorbar(im,ax=axes,shrink=.9,pad=.025,fraction=.04)
     bar.set_label('Additional idle patch-rounds\nrelative to one-round baseline',fontsize=8)
     bar.ax.tick_params(labelsize=7)
-    fig.suptitle(f'{algorithm} · {policy}',fontsize=11)
+    fig.suptitle(f'{algorithm} · {policy}\n'
+                 f'CPU PyMatching surrogate · d = {config["distance"]} · QEC round = {config["round_us"]:g} µs · speculation off',
+                 fontsize=9.5)
     return fig
 
 
@@ -152,7 +154,9 @@ def main():
                         axes[i,j].set_title(f'{a} | '+('α = 0' if key=='speed' else 's = 1'),loc='left',fontsize=8)
                 bar=fig.colorbar(im,ax=axes,pad=.02,fraction=.025,shrink=.5)
                 bar.set_label('Additional idle patch-rounds relative to one-round baseline')
-                fig.suptitle(f'{policy} · shared scale across all benchmarks',fontsize=11)
+                fig.suptitle(f'{policy} · shared scale across all benchmarks\n'
+                             f'CPU PyMatching surrogate · d = {config["distance"]} · QEC round = {config["round_us"]:g} µs · speculation off',
+                             fontsize=9.5)
                 fig.savefig(figures/f'atlas__{policy}__{page}.png')
                 pdf.savefig(fig);plt.close(fig)
     lines=['# Concurrency heatmaps','',
