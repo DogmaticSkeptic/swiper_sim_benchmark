@@ -277,3 +277,13 @@ load, saturation, resets, invalid inputs, and full-trace scheduling equivalence.
 The upstream package's Python metadata specifies `<=3.12`, which excludes patch
 versions of Python 3.12 despite the source running with them. This run used
 Python 3.12.12 with `pip install --no-deps --ignore-requires-python -e ./swiper-sim`.
+
+On Perlmutter, attach the runner directly to the interactive allocation to keep
+an idle login shell's auto-logout from releasing a running sweep:
+
+```bash
+salloc -A m5350 -C cpu -q interactive -N4 -t 04:00:00 \
+  srun -N4 -n4 --ntasks-per-node=1 -c128 --hint=nomultithread \
+  .venv/bin/python distributed_sweep.py \
+  --out results/concurrency --shards 4 --workers 64
+```
