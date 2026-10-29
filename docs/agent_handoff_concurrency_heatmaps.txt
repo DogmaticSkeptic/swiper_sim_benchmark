@@ -1,0 +1,135 @@
+AGENT HANDOFF: CONCURRENCY-DEPENDENT DECODING AND TWO HEATMAPS
+
+Repository: https://github.com/DogmaticSkeptic/swiper_sim_benchmark
+
+OBJECTIVE
+Extend SWIPER's timing model so simultaneous decoding requests sharing an
+accelerator can slow each other down. Implement the extension and generate two
+heatmaps of inserted idling. This is a scheduling model, not a fidelity model.
+
+CURRENT STATE
+- bootstrap_sources.py fetches pinned SWIPER into swiper-sim/ (ignored by Git).
+- swiper_latency.py loads the reference volume-to-latency profile.
+- run_swiper_demo.py demonstrates the callback and decoder-pool settings.
+- The committed coupled dataset has 114 cases, 1,000 shots each. Do not regenerate
+  it just to run these simulations.
+- The included timing profile measures CPU PyMatching on representative complete
+  surgery circuits. It is not calibrated GPU/FPGA timing or exact interior-window
+  decoding. Label figures accordingly until target measurements replace it.
+
+CODE FINDINGS
+swiper-sim/swiper/decoder_manager.py:
+- update_decoding() assigns a job its latency at launch (around line 422).
+- step() subtracts one from every active job each QEC round (around line 139).
+- max_parallel_processes caps active decoding jobs.
+Simply multiplying a new job's launch latency by the current occupancy would
+leave existing jobs unaffected and introduce launch-order bias. Use remaining
+work and a common per-round progress rate instead.
+
+PROPOSED MODEL
+Let V be commit-plus-buffer volume in patch-rounds, k the ACTUAL number of
+active decodes, and alpha a nonnegative slowdown coefficient:
+
+    slowdown(k) = 1 + alpha * (k - 1)
+    work_completed_per_QEC_round = 1 / slowdown(k)
+
+At sustained k, isolated decode duration T becomes T * slowdown(k).
+Example: alpha=0.05 and k=8 means 35 percent longer latency per job.
+M is the configured capacity; k <= M is the current load. Do not use M in place
+of k. Interpret these slots as requests sharing a resource. Independent devices
+would need separate contention groups.
+
+IMPLEMENTATION
+1. Add parallel_slowdown_alpha, default 0, through DecodingSimulator.run(),
+   initialize_experiment(), SimulatorParams, and DecoderManager. Also thread it
+   through prediction/recursive simulation paths where applicable.
+2. Store each attempt's isolated remaining work once when it starts. Do not
+   resample its base latency every round. Existing integer latency callbacks
+   must retain their behavior at alpha=0.
+3. At each step, snapshot k before advancing/completing jobs. Advance ALL active
+   decodes by the same 1/slowdown(k). Recompute next round as jobs enter or leave.
+   Skip the calculation when k=0. Retain fractional work; use an appropriate
+   numerical tolerance for completion to avoid floating-point extra rounds.
+4. Preserve dependency scheduling, pool limits, cancellation, failed-speculation
+   resets, and redecoding. Reset remaining work for each new decode attempt.
+5. Accept positive fractional isolated work in QEC-round units for the sweep.
+   Obtain unrounded microseconds from the profile's model.latency_us(V), divide
+   by speed multiplier and QPU round duration, then advance that work. Avoid
+   rounding the latency before applying the speed multiplier. Completion remains
+   observable at QEC-round boundaries.
+6. Begin with speculation disabled to isolate contention. Keep existing
+   speculation behavior compatible at alpha=0. If enabling speculation in the
+   new model, explicitly state whether predictor work shares the accelerator;
+   do not silently assume its existing independent timer models shared compute.
+7. Keep fixed communication overhead separate. Use zero communication overhead
+   for the initial experiment; do not accidentally scale transport with alpha.
+8. Validate finite alpha >= 0 and finite positive work and speed values.
+   Record alpha, reference profile, QPU round duration, and actual concurrency
+   statistics. Count occupancy at the moment used for the slowdown calculation.
+9. This is dynamic contention, not explicit ML batching. Batch-formation delays,
+   fixed batch cohorts, padding, and synchronized batch completion are out of
+   scope for this first extension.
+
+MAKE THE CHANGE REPRODUCIBLE
+The upstream checkout is ignored. Ship a tracked patch, for example
+patches/swiper-concurrency-slowdown.patch, against upstream-sources.json's pinned
+commit. Update bootstrap_sources.py to apply it safely and idempotently. Detect
+already-applied patches and preserve/refuse to overwrite unrelated local edits.
+Do not leave the only implementation inside the ignored checkout.
+
+HEATMAP 1: DECODER COUNT VERSUS ISOLATED DECODER SPEED
+- X: maximum parallel decodes M = 1, 2, 4, 8, 16, 32.
+- Y: reference speed multiplier s = 0.25, 0.5, 1, 2, 4, 8.
+- Hold alpha=0.
+- Isolated work(V,s) = reference_latency_us(V) / (s * QPU_round_us).
+
+HEATMAP 2: DECODER COUNT VERSUS CONCURRENCY SLOWDOWN
+- X: maximum parallel decodes M = 1, 2, 4, 8, 16, 32.
+- Y: alpha = 0, 0.01, 0.025, 0.05, 0.1, 0.2, 0.5.
+- Hold isolated speed at s=1.
+- Use the dynamic slowdown model above.
+
+COMMON PLOTTING INSTRUCTIONS
+- One pair of heatmaps per algorithm and window policy. Start with the small
+  T-gate demo and toffoli before expanding to larger cached schedules.
+- Hold distance, QPU round duration, speculation configuration, and seeds fixed.
+  Default initial experiment: distance 3, speculation off. Make QPU round time
+  configurable and label the chosen value; 1 microsecond is only an example.
+- Use lightweight_setting=0 to obtain generated_syndrome_data.
+- Raw idle patch-rounds = sum(sr.is_unwanted_idle for each syndrome round object
+  in device.generated_syndrome_data). This counts patches, not elapsed time.
+- The raw counter includes general scheduling waits. For decoder-induced extra
+  idling, subtract a baseline run with the same schedule/policy/distance, no
+  contention, unlimited decoder slots, and minimum one-round decode latency.
+  Use the SAME baseline for both plots. Label the colorbar precisely as
+  additional idle patch-rounds relative to that baseline.
+- Preserve unexpected negative differences for investigation; do not silently
+  clamp or invent monotonic results.
+- Use a shared color scale for comparable panels. Keep zero visible if using a
+  nonlinear scale. Mark cutoff/failed runs as missing, never as zero idles.
+- Save underlying CSV and PNG plus SVG or PDF figures.
+- CSV should record algorithm, policy, distance, M, speed, alpha, QPU round time,
+  seed, status, raw idle patch-rounds, baseline idle patch-rounds, additional
+  idle patch-rounds, device rounds, decoder completion rounds, and concurrency
+  diagnostics. Include profile identity/hash and simulator/patch version.
+- Set PYTHONHASHSEED before process startup as well as the simulator RNG seed;
+  upstream unordered-set tie breaking can otherwise vary between processes.
+- Use time/round/backlog cutoffs for large sweeps. Do not change cutoffs between
+  cells without recording it. Avoid retaining all large simulations in memory.
+
+VALIDATION AND ACCEPTANCE
+- alpha=0 reproduces upstream behavior with existing integer callbacks.
+- M=1 is unaffected by alpha.
+- At constant k, equal jobs receive equal progress and completion times agree
+  with the slowdown formula within round quantization/tolerance.
+- Changing k affects already-running jobs without resetting completed work.
+- Cancellation/redecoding releases capacity and resets work correctly.
+- Heatmap 2's alpha=0 row matches heatmap 1's s=1 row with identical settings.
+- Test fractional work, k=0, invalid parameters, saturation, and job completion.
+- Run project tests and upstream tests. Existing commands:
+    .venv/bin/python -m pytest -q
+    .venv/bin/python -m pytest -q swiper-sim/tests
+- Document the model assumptions and plotting commands in README.md.
+- Commit the reproducible patch, bootstrap changes, tests, and sweep/plot driver.
+  Keep generated sweep outputs under results/ unless explicitly asked to commit
+  them. Do not alter or regenerate the committed Stim database unnecessarily.
