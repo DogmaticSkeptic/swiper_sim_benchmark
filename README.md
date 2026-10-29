@@ -292,3 +292,7 @@ salloc -A m5350 -C cpu -q interactive -N4 -t 04:00:00 \
   .venv/bin/python distributed_sweep.py \
   --out results/concurrency --shards 4 --workers 64
 ```
+
+For several allocations, use the same total `--shards` and disjoint
+`--rank-offset` values. Four four-node allocations use `--shards 16` with offsets
+0, 4, 8 and 12. Each Slurm task adds its local rank to that offset.

@@ -68,7 +68,9 @@ def main():
     p.add_argument('--workers',type=int,default=48)
     p.add_argument('--memory-budget-gib',type=float,default=320.)
     p.add_argument('--rank',type=int,default=int(os.environ.get('SLURM_PROCID','0')))
+    p.add_argument('--rank-offset',type=int,default=0)
     args=p.parse_args();out=args.out.resolve()
+    args.rank += args.rank_offset
     if not 0<=args.rank<args.shards or args.workers<1 or not 0<args.memory_budget_gib< float('inf'):p.error('Invalid rank, workers, or memory budget')
     config=json.loads((out/'configuration.json').read_text())
     for name,field in [('sweep_concurrency.py','driver_sha256'),('sweep_runtime.py','runtime_sha256'),
