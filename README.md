@@ -220,7 +220,8 @@ for a different configuration. Repeating the same command resumes saved cells.
 Every simulation starts in a fresh process with both `PYTHONHASHSEED` and the
 simulator RNG seed fixed. The sweep reuses the inventory's tested incremental
 DAG construction, conservative future-start prediction bounds, and spatial
-boundary filter through `sweep_runtime.py`. It runs with `lightweight_setting=0`
+boundary filter through `sweep_runtime.py`. With speculation off, simultaneous
+completions are independent, so the sweep skips sorting their waiting descendants. It runs with `lightweight_setting=0`
 and retains the generated syndrome trace for counting unwanted idle patch-rounds.
 
 The raw idle count is the sum of `is_unwanted_idle` over every generated syndrome
@@ -255,9 +256,9 @@ For a multi-node Slurm run, initialize the frozen output directory first, then u
 
 ```bash
 .venv/bin/python sweep_concurrency.py --out results/concurrency --initialize-only
-srun --jobid=ALLOCATION -N4 -n4 --ntasks-per-node=1 -c48 \
+srun --jobid=ALLOCATION -N4 -n4 --ntasks-per-node=1 -c128 --hint=nomultithread \
   .venv/bin/python distributed_sweep.py \
-  --out results/concurrency --shards 4 --workers 48
+  --out results/concurrency --shards 4 --workers 64
 .venv/bin/python sweep_concurrency.py --out results/concurrency --aggregate
 .venv/bin/python plot_concurrency.py results/concurrency
 ```

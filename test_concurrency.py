@@ -180,3 +180,16 @@ def test_prediction_path_preserves_contention_parameter():
     assert success
     assert params.parallel_slowdown_alpha==decoder.parallel_slowdown_alpha==.1
     assert max(decoder.concurrency_rounds)<=params.max_parallel_processes
+
+
+@pytest.mark.parametrize('policy',['aligned','parallel','sliding'])
+def test_sweep_optimization_preserves_saturated_trace(policy):
+    from sweep_runtime import SweepSimulator
+    results=[]
+    for cls in [DecodingSimulator,SweepSimulator]:
+        outcome=cls().run(schedule=RegularTSchedule(10,idle_between_Ts=0).schedule,
+            distance=3,scheduling_method=policy,decoding_latency_fn=lambda v:6.3+v/100,
+            parallel_slowdown_alpha=.2,max_parallel_processes=2,lightweight_setting=0,
+            rng=0,device_rounds_cutoff=1000)
+        results.append((outcome[0],outcome[2].to_dict(),outcome[4].to_dict()))
+    assert results[0]==results[1]

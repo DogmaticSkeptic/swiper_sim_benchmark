@@ -7,19 +7,33 @@ available at lightweight_setting=0. Each sweep runs in its own process.
 """
 import swiper.simulator as simulator_module
 from swiper.simulator import DecodingSimulator
+from swiper.decoder_manager import DecoderManager
 from swiper.window_builder import DecodingWindow
 from inventory_windows import (InventoryDeviceManager, InventorySchedule,
                                filtered_shares_boundary)
 
 
+class SweepDecoderManager(DecoderManager):
+    def _topologically_sort(self, task_indices):
+        if self.speculation_mode is None:
+            # Without speculation a child starts only after every parent has
+            # completed in an earlier round. Simultaneous completions therefore
+            # have no mutual dependencies. Do not walk their pending descendants.
+            return task_indices
+        return super()._topologically_sort(task_indices)
+
+
 class SweepSimulator(DecodingSimulator):
     def initialize_experiment(self, **kwargs):
         original = simulator_module.DeviceManager
+        original_decoder = simulator_module.DecoderManager
         try:
             simulator_module.DeviceManager = InventoryDeviceManager
+            simulator_module.DecoderManager = SweepDecoderManager
             super().initialize_experiment(**kwargs)
         finally:
             simulator_module.DeviceManager = original
+            simulator_module.DecoderManager = original_decoder
         process_round = self._window_manager.process_round
         def filtered_round(rounds):
             original_boundary = DecodingWindow.shares_boundary
