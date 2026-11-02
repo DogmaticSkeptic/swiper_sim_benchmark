@@ -35,6 +35,13 @@ def positive(value):
     return x
 
 
+def nonnegative(value):
+    x = float(value)
+    if not math.isfinite(x) or x < 0:
+        raise argparse.ArgumentTypeError('Value must be finite and nonnegative')
+    return x
+
+
 def atomic_json(path, data):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -54,6 +61,9 @@ def task_id(task):
 
 
 def tasks(config):
+    counts = config.get('counts', COUNTS)
+    speeds = config.get('speeds', SPEEDS)
+    alphas = config.get('alphas', ALPHAS)
     result = []
     for algorithm, schedule in schedules().items():
         if config['algorithms'] and algorithm not in config['algorithms']:
@@ -61,8 +71,8 @@ def tasks(config):
         for policy in config['policies']:
             common = dict(algorithm=algorithm, schedule=schedule, policy=policy)
             result.append(dict(common, baseline=True, M=None, speed=1., alpha=0.))
-            cells = [(m, s, 0.) for s in SPEEDS for m in COUNTS]
-            cells += [(m, 1., a) for a in ALPHAS[1:] for m in COUNTS]
+            cells = [(m, s, 0.) for s in speeds for m in counts]
+            cells += [(m, 1., a) for a in alphas if a != 0 for m in counts]
             result.extend(dict(common, baseline=False, M=m, speed=s, alpha=a) for m,s,a in cells)
     return result
 
@@ -217,6 +227,12 @@ def main():
     parser.add_argument('--memory-gib',type=positive,default=10.)
     parser.add_argument('--algorithms',nargs='+')
     parser.add_argument('--policies',nargs='+',choices=POLICIES,default=POLICIES)
+    parser.add_argument('--counts', nargs='+', type=int, default=COUNTS,
+                        help='Decoder capacities M to sweep (default: %(default)s)')
+    parser.add_argument('--speeds', nargs='+', type=positive, default=SPEEDS,
+                        help='Isolated decoder speed multipliers s (must include 1)')
+    parser.add_argument('--alphas', nargs='+', type=nonnegative, default=ALPHAS,
+                        help='Concurrency slowdown coefficients alpha (must include 0)')
     parser.add_argument('--cell',help=argparse.SUPPRESS)
     parser.add_argument('--aggregate',action='store_true')
     parser.add_argument('--initialize-only',action='store_true')
@@ -229,6 +245,12 @@ def main():
         aggregate(out); return
     if min(args.distance,args.workers,args.round_cutoff,args.backlog_cutoff)<=0:
         parser.error('Distance, workers, and cutoffs must be positive')
+    if any(count <= 0 for count in args.counts) or len(set(args.counts)) != len(args.counts):
+        parser.error('Decoder counts must be unique positive integers')
+    if len(set(args.speeds)) != len(args.speeds) or 1.0 not in args.speeds:
+        parser.error('Speeds must be unique and include 1 for the alpha heatmap')
+    if len(set(args.alphas)) != len(args.alphas) or 0.0 not in args.alphas:
+        parser.error('Alphas must be unique and include 0 for the speed heatmap')
     if args.algorithms and set(args.algorithms)-set(schedules()):
         parser.error('Unknown algorithm')
     config = dict(distance=args.distance, round_us=args.round_us, seed=args.seed,
@@ -238,6 +260,7 @@ def main():
         simulator_commit=json.loads((ROOT/'upstream-sources.json').read_text())['swiper-sim']['commit'],
         timeout=args.timeout, round_cutoff=args.round_cutoff, backlog_cutoff=args.backlog_cutoff,
         memory_gib=args.memory_gib, algorithms=args.algorithms, policies=args.policies,
+        counts=args.counts, speeds=args.speeds, alphas=args.alphas,
         schedule_hashes={a:digest(p) if p else hashlib.sha256(b'RegularTSchedule(10, idle_between_Ts=0)').hexdigest()
                          for a,p in schedules().items()})
     config['config_sha256']=hashlib.sha256(json.dumps(config,sort_keys=True).encode()).hexdigest()

@@ -1,0 +1,13 @@
+{
+  "expected_cells": 9855,
+  "recorded_cells": 9855,
+  "statuses": {
+    "time_cutoff": 1394,
+    "ok": 5857,
+    "backlog_cutoff": 2585,
+    "memory_cutoff": 14,
+    "process_failed": 3,
+    "watchdog_cutoff": 2
+  },
+  "comparable_cells": 5857
+}

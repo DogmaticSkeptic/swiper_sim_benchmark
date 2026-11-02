@@ -28,9 +28,9 @@ def read_rows(path):
     return rows
 
 
-def grid(rows, algorithm, policy, which):
-    ys=SPEEDS if which=='speed' else ALPHAS
-    values=np.full((len(ys),len(COUNTS)),np.nan)
+def grid(rows, algorithm, policy, which, counts=COUNTS, speeds=SPEEDS, alphas=ALPHAS):
+    ys=speeds if which=='speed' else alphas
+    values=np.full((len(ys),len(counts)),np.nan)
     statuses=np.full(values.shape,'missing',dtype=object)
     for r in rows:
         if r['baseline'] or r['algorithm']!=algorithm or r['policy']!=policy:
@@ -38,8 +38,8 @@ def grid(rows, algorithm, policy, which):
         if which=='speed' and r['alpha']!=0: continue
         if which=='alpha' and r['speed']!=1: continue
         y=r['speed'] if which=='speed' else r['alpha']
-        if y not in ys or r['M'] not in COUNTS: continue
-        i,j=ys.index(y),COUNTS.index(r['M'])
+        if y not in ys or r['M'] not in counts: continue
+        i,j=ys.index(y),counts.index(r['M'])
         if r['additional_idle_patch_rounds'] is not None:
             values[i,j]=r['additional_idle_patch_rounds']
             statuses[i,j]='ok'
@@ -61,16 +61,17 @@ def short(x):
     return f'{x/1e6:.1f}M'
 
 
-def draw(ax, values, statuses, which, norm, cmap, annotate=True):
+def draw(ax, values, statuses, which, norm, cmap, counts=COUNTS, speeds=SPEEDS,
+         alphas=ALPHAS, annotate=True):
     cm=plt.get_cmap(cmap).copy();cm.set_bad('#e8e8e8')
     im=ax.imshow(np.ma.masked_invalid(values),origin='lower',aspect='auto',norm=norm,cmap=cm)
-    ys=SPEEDS if which=='speed' else ALPHAS
-    ax.set_xticks(range(len(COUNTS)),[str(m) for m in COUNTS])
+    ys=speeds if which=='speed' else alphas
+    ax.set_xticks(range(len(counts)),[str(m) for m in counts])
     ax.set_yticks(range(len(ys)),[f'{v:g}' for v in ys])
     ax.set_xlabel('Maximum parallel decodes, M')
     ax.set_ylabel('Isolated speed multiplier, s' if which=='speed' else 'Slowdown coefficient, α')
     ax.set_title('(a) α = 0' if which=='speed' else '(b) s = 1',loc='left',fontsize=9,pad=7)
-    ax.set_xticks(np.arange(-.5,len(COUNTS),1),minor=True)
+    ax.set_xticks(np.arange(-.5,len(counts),1),minor=True)
     ax.set_yticks(np.arange(-.5,len(ys),1),minor=True)
     ax.grid(which='minor',color='white',linewidth=.35)
     ax.tick_params(which='minor',bottom=False,left=False)
@@ -88,11 +89,12 @@ def draw(ax, values, statuses, which, norm, cmap, annotate=True):
 
 
 def pair(rows,algorithm,policy,config):
-    data=[grid(rows,algorithm,policy,key) for key in ['speed','alpha']]
+    axis_values=(config.get('counts',COUNTS),config.get('speeds',SPEEDS),config.get('alphas',ALPHAS))
+    data=[grid(rows,algorithm,policy,key,*axis_values) for key in ['speed','alpha']]
     norm,cmap=normalization([d[0] for d in data])
     fig,axes=plt.subplots(1,2,figsize=(8,3.35),layout='constrained')
     for ax,(values,statuses),key in zip(axes,data,['speed','alpha']):
-        im=draw(ax,values,statuses,key,norm,cmap)
+        im=draw(ax,values,statuses,key,norm,cmap,*axis_values)
     bar=fig.colorbar(im,ax=axes,shrink=.9,pad=.025,fraction=.04)
     bar.set_label('Additional idle patch-rounds\nrelative to one-round baseline',fontsize=8)
     bar.ax.tick_params(labelsize=7)
@@ -102,15 +104,24 @@ def pair(rows,algorithm,policy,config):
     return fig
 
 
-def validate(rows):
+def validate(rows, config=None):
+    config = config or {}
     checks=[]
+    counts=config.get('counts',COUNTS)
+    speeds=config.get('speeds',SPEEDS)
+    alphas=config.get('alphas',ALPHAS)
+    axis_values=(counts,speeds,alphas)
+    speed_one=speeds.index(1.)
+    alpha_zero=alphas.index(0.)
     for a in sorted({r['algorithm'] for r in rows}):
-        for p in POLICIES:
-            speed,_=grid(rows,a,p,'speed');alpha,_=grid(rows,a,p,'alpha')
-            both=np.isfinite(speed[2]) & np.isfinite(alpha[0])
-            if not np.array_equal(speed[2,both],alpha[0,both]):
+        for p in config.get('policies',POLICIES):
+            speed,_=grid(rows,a,p,'speed',*axis_values);alpha,_=grid(rows,a,p,'alpha',*axis_values)
+            both=np.isfinite(speed[speed_one]) & np.isfinite(alpha[alpha_zero])
+            if not np.array_equal(speed[speed_one,both],alpha[alpha_zero,both]):
                 raise AssertionError((a,p,'overlap mismatch'))
-            vals=alpha[:,0];vals=vals[np.isfinite(vals)]
+            decoder_one=counts.index(1) if 1 in counts else None
+            vals=alpha[:,decoder_one] if decoder_one is not None else np.array([])
+            vals=vals[np.isfinite(vals)]
             if len(vals) and not np.all(vals==vals[0]):
                 raise AssertionError((a,p,'M=1 differs with alpha'))
             checks.append(dict(algorithm=a,policy=p,overlap_comparisons=int(sum(both)),
@@ -124,7 +135,11 @@ def main():
     parser.add_argument('directory',type=Path)
     args=parser.parse_args();out=args.directory
     rows=read_rows(out/'sweep.csv');config=json.loads((out/'configuration.json').read_text())
-    checks=validate(rows)
+    config.setdefault('counts', COUNTS)
+    config.setdefault('speeds', SPEEDS)
+    config.setdefault('alphas', ALPHAS)
+    config.setdefault('policies', POLICIES)
+    checks=validate(rows,config)
     (out/'acceptance.json').write_text(json.dumps(checks,indent=2)+'\n')
     figures=out/'figures';figures.mkdir(exist_ok=True)
     plt.rcParams.update({'font.family':'DejaVu Sans','font.size':8,'axes.labelsize':8,
@@ -140,7 +155,8 @@ def main():
                 pdf.savefig(fig)
                 plt.close(fig)
     # Atlas pages share a global scale across every algorithm and policy.
-    all_values=[grid(rows,a,p,k)[0] for a in algorithms for p in config['policies'] for k in ['speed','alpha']]
+    axis_values=(config['counts'],config['speeds'],config['alphas'])
+    all_values=[grid(rows,a,p,k,*axis_values)[0] for a in algorithms for p in config['policies'] for k in ['speed','alpha']]
     norm,cmap=normalization(all_values)
     with PdfPages(figures/'comparison_atlas.pdf') as pdf:
         for policy in config['policies']:
@@ -149,8 +165,8 @@ def main():
                 fig,axes=plt.subplots(len(subset),2,figsize=(8.3,2*len(subset)+.5),layout='constrained',squeeze=False)
                 for i,a in enumerate(subset):
                     for j,key in enumerate(['speed','alpha']):
-                        values,statuses=grid(rows,a,policy,key)
-                        im=draw(axes[i,j],values,statuses,key,norm,cmap,annotate=False)
+                        values,statuses=grid(rows,a,policy,key,*axis_values)
+                        im=draw(axes[i,j],values,statuses,key,norm,cmap,*axis_values,annotate=False)
                         axes[i,j].set_title(f'{a} | '+('α = 0' if key=='speed' else 's = 1'),loc='left',fontsize=8)
                 bar=fig.colorbar(im,ax=axes,pad=.02,fraction=.025,shrink=.5)
                 bar.set_label('Additional idle patch-rounds relative to one-round baseline')
@@ -167,10 +183,11 @@ def main():
         'Each pair shares a symmetric-log color scale with a linear region through zero. The comparison atlas shares one scale across all benchmarks. Numbers in cells are rounded for display; sweep.csv retains exact integer counts. No statistical uncertainty is implied by this fixed-seed deterministic sweep.','',
         'Gray cells are missing: T = time cutoff, R = round cutoff, B = backlog cutoff, MEM = memory cutoff, FAIL = process failure, ERR = simulation error, BASE = baseline unavailable. They are never rendered as zero. Full status and cutoffs are recorded in the CSV and cell JSON files.','',
         '`all_benchmarks.pdf` contains one pair per algorithm and policy. `comparison_atlas.pdf` compares all algorithms. Individual pairs are exported as PNG, editable SVG and PDF.','',
-        '| Algorithm | Aligned | Parallel | Sliding |','|---|---|---|---|']
+        '| Algorithm | '+ ' | '.join(p.title() for p in config['policies']) +' |',
+        '|'+'|'.join(['---']*(1+len(config['policies'])))+'|']
     for a in algorithms:
         name=re.sub(r'[^a-zA-Z0-9_.-]+','__',a)
-        lines.append('| '+a+' | '+' | '.join(f'[PNG](figures/{name}__{p}.png)' for p in POLICIES)+' |')
+        lines.append('| '+a+' | '+' | '.join(f'[PNG](figures/{name}__{p}.png)' for p in config['policies'])+' |')
     (out/'README.md').write_text('\n'.join(lines)+'\n')
     print(f'Wrote {len(algorithms)*len(config["policies"])} heatmap pairs and comparison atlas')
 
